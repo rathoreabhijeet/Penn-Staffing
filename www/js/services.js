@@ -337,6 +337,12 @@ angular.module('starter.services', [])
     .factory("EventsInfo", function () {
         return {data: []};
     })
+    .factory("ImagesInfo", function () {
+        return {data: [], imagesData:[]};
+    })
+    .factory("VideosInfo", function () {
+        return {data: [], videosData:[]};
+    })
     .factory("ArticlesInfo", function () {
         return {data: []};
     })

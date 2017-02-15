@@ -346,11 +346,6 @@ drawer .item-complex .item-content {
     height: 100%;
 }
 
-.item-image {
-    padding: 0;
-    min-height: 250px;
-    text-align: center;
-}
 .photoGallery .item-image {
     padding: 0;
     min-height: 50px;
@@ -358,33 +353,39 @@ drawer .item-complex .item-content {
     text-align: center;
 }
 
-.item-image img:first-child, .item-image .list-img {
-    width: 100%;
-    vertical-align: middle;
-}
 
 .item-image {
+    padding: 0;
+    text-align: center;
     position: relative;
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
+    margin:0;
+    min-height:60px;
 }
 
-.item-image:after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    height: 100%;
+.item-image img:first-child, .item-image .list-img {
     width: 100%;
-    background-image: -webkit-linear-gradient(top, transparent 50%,#444 75%, #000 100%);
-    background-image: -o-linear-gradient(top, transparent 50%,#444 75%, #000 100%);
-    background-image: linear-gradient(to bottom, transparent 50%,#444 75%, #000 100%);
-    background-repeat: repeat-x;
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#FF000000', GradientType=0);
-    opacity: 0.7;
-    z-index: 1;
+    vertical-align: middle;
+    min-height: 60px;
 }
+
+/*.item-image:after {*/
+    /*content: "";*/
+    /*position: absolute;*/
+    /*bottom: 0;*/
+    /*left: 0;*/
+    /*height: 100%;*/
+    /*width: 100%;*/
+    /*background-image: -webkit-linear-gradient(top, transparent 50%,#444 75%, #000 100%);*/
+    /*background-image: -o-linear-gradient(top, transparent 50%,#444 75%, #000 100%);*/
+    /*background-image: linear-gradient(to bottom, transparent 50%,#444 75%, #000 100%);*/
+    /*background-repeat: repeat-x;*/
+    /*filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#FF000000', GradientType=0);*/
+    /*opacity: 0.7;*/
+    /*z-index: 1;*/
+/*}*/
 .item-image .titles {
     position: absolute;
     bottom: 0;
@@ -544,6 +545,9 @@ drawer .item-complex .item-content {
     font-style: normal;
     line-height: 1em;
 
+}
+.app-article-content img, .article-content img{
+    width: 100%;
 }
 .article-content div{
     white-space: normal;

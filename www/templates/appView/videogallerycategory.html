@@ -1,33 +1,37 @@
-<ion-view view-title="Videos Category" hide-back-button="true">
+<ion-view  hide-back-button="true">
     <ion-nav-buttons side="left">
         <button class="button button-icon button-clear ion-navicon" menu-and-drawer-toggle>
         </button>
     </ion-nav-buttons>
     <ion-nav-buttons side="right">
-        <button class="button button-icon button-clear ion-bag" ecomm-modal
-                ng-if="cartItems.length==0">
-        </button>
-        <button class="button button-icon button-clear ion-bag padding-right-10" ecomm-modal ng-if="cartItems.length>0">
-            <span class="badge badge-assertive absolute right-0" >{{cartItems.length}}</span>
+        <button class="button button-icon button-clear ion-loop" ng-click="refreshAllData()">
         </button>
     </ion-nav-buttons>
+    <ion-nav-title>
+        <h1 cache-src="{{headerLogo}}"
+            src-is="background"
+            background-loading-style=" no-repeat center"
+            class="title company-logo article-header-logo"></h1>    </ion-nav-title>
     <div class="text-center positive middle-align" ng-if="msg != ''">
         {{msg}}
     </div>
     <ion-content>
         <ion-list>
-            <ion-item ng-repeat="item in videos" class="item-thumbnail-left item-text-wrap" ui-sref="app.videogallery({id:item.id})">
-                <div class="image-adjust img-content" ng-style="{'background-image':'url(http://img.youtube.com/vi/{{item.url | url}}/default.jpg)'}"></div>
+            <ion-item ng-repeat="item in videos" class="item-thumbnail-left item-text-wrap" ui-sref="app.videogallery({id:item.id,image:item.image})">
+                <div cache-src="http://img.youtube.com/vi/{{item.url | url}}/default.jpg"
+                     src-is="background"
+                     background-loading-style=" no-repeat center"
+                     class="image-adjust img-content lightgray-bg"></div>
                 <h2>{{item.name}}</h2>
                 <p>{{item.subtitle}}</p>
             </ion-item>
-            <!--<ion-infinite-scroll on-infinite="loadMorePolls()" ng-if="keepscrolling" distance="5%">-->
+            <!--<ion-infinite-scroll on-infinite="loadMorePolls()" ng-if="keepscrolling" distance="25%">-->
             <!--</ion-infinite-scroll>-->
         </ion-list>
     </ion-content>
     <ion-footer-bar class="margin-0 padding-0 footer-menu">
         <ion-scroll zooming="true" direction="x" scrollbar-x="false" class="categories-filter">
-			<span class="footer-col" ng-repeat="links in footerLinks"  ng-click="footerLink(links)">
+			<span class="footer-col" ng-repeat="links in footerLinks" ng-click="footerLink(links)">
                 <div class="row row-no-padding padding-top-5" >
                     <div class="col ">
                         <i class="icon" ng-class="links.icon"></i>
@@ -36,18 +40,6 @@
                 <div class="row row-no-padding padding-top-5" >
                     <div class="col ">
                         {{links.name}}
-                    </div>
-                </div>
-            </span>
-            <span class="footer-col" ng-click="openCart()">
-                <div class="row row-no-padding padding-top-5" >
-                    <div class="col ">
-                        <i class="icon ion-android-cart"></i>
-                    </div>
-                </div>
-                <div class="row row-no-padding padding-top-5" >
-                    <div class="col ">
-                        Cart
                     </div>
                 </div>
             </span>

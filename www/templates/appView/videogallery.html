@@ -1,14 +1,28 @@
-<ion-view view-title="Videos">
+<ion-view>
+    <ion-nav-title>
+        <h1 cache-src="{{headerLogo}}"
+            src-is="background"
+            background-loading-style=" no-repeat center"
+            class="title company-logo article-header-logo"></h1>    </ion-nav-title>
     <div class="text-center positive middle-align" ng-if="msg != ''">
         {{msg}}
     </div>
     <ion-content>
+        <div class="article-image-container border-bottom-lightgray" ng-style="{'background-image':'url(../img/loader3.gif)'}">
+            <img cache-src="{{videoListImage}}"
+                 circle-container-style="display:none;"
+                 class="article-image"/>
+        </div>
         <ion-list>
-            <ion-item ng-repeat="item in videos" class="item-thumbnail-left item-text-wrap" ng-click="showVideo(item.url);">
-                <div class="image-adjust img-content"
-                     ng-style="{'background-image':'url(http://img.youtube.com/vi/{{item.url | url}}/default.jpg)'}"></div>
-                <h2>{{item.alt}}</h2>
+            <ion-item ng-repeat="item in gallery.videos" class="item-thumbnail-left item-text-wrap" ng-click="showVideo(item.url,item.orientation);">
+                <div cache-src="http://img.youtube.com/vi/{{item.url | url}}/default.jpg"
+                     src-is="background"
+                     background-loading-style=" no-repeat center"
+                     class="image-adjust img-content lightgray-bg"></div>
+                <h2 class="dark bold">{{item.alt}}</h2>
                 <p>{{item.subtitle}}</p>
+                <p class="bold raleway"><i class="icon ion-android-calendar padding-right-5"></i> {{item.publisheddate|date: 'MMM dd, yyyy '}}</p>
+
                 <ion-option-button class="button-positive" ng-click="share(item)">
                     Share
                 </ion-option-button>
@@ -17,5 +31,20 @@
             <!--</ion-infinite-scroll>-->
         </ion-list>
     </ion-content>
-
+    <ion-footer-bar class="margin-0 padding-0 footer-menu">
+        <ion-scroll zooming="true" direction="x" scrollbar-x="false" class="categories-filter">
+			<span class="footer-col" ng-repeat="links in footerLinks" ng-click="footerLink(links)">
+                <div class="row row-no-padding padding-top-5" >
+                    <div class="col ">
+                        <i class="icon" ng-class="links.icon"></i>
+                    </div>
+                </div>
+                <div class="row row-no-padding padding-top-5" >
+                    <div class="col ">
+                        {{links.name}}
+                    </div>
+                </div>
+            </span>
+        </ion-scroll>
+    </ion-footer-bar>
 </ion-view>

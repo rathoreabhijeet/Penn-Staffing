@@ -1,23 +1,19 @@
-<ion-view view-title="Photo Category" hide-back-button="true" class="photoGallery">
+<ion-view view-title="Photo Category" hide-back-button="true">
     <ion-nav-buttons side="left">
         <button class="button button-icon button-clear ion-navicon" menu-and-drawer-toggle>
         </button>
     </ion-nav-buttons>
     <ion-nav-buttons side="right">
-        <button class="button button-icon button-clear ion-bag" ecomm-modal
-                ng-if="cartItems.length==0">
-        </button>
-        <button class="button button-icon button-clear ion-bag padding-right-10" ecomm-modal ng-if="cartItems.length>0">
-            <span class="badge badge-assertive absolute right-0" >{{cartItems.length}}</span>
+        <button class="button button-icon button-clear ion-loop" ng-click="refreshAllData()">
         </button>
     </ion-nav-buttons>
     <div class="text-center positive middle-align" ng-if="msg != ''">
         {{msg}}
     </div>
     <ion-content>
-        <div class="list margin-bottom-0" ng-repeat="photos in photos" ng-click="sendphotoid(photos.id);">
-            <div class="item item-image">
-                <img cache-src="{{photos.image | serverimage}}" alt="" circle-container-style="display:none;">
+        <div class="list" >
+            <div class="item item-image gallery-category" ng-repeat="photos in photos" ng-click="sendphotoid(photos.id);">
+                <img cache-src="{{photos.image | serverimage}}"  alt="" circle-container-style="display:none;">
             </div>
             <!--<div class="item">-->
                 <!--{{photos.name}}-->
@@ -28,7 +24,7 @@
     </ion-content>
     <ion-footer-bar class="margin-0 padding-0 footer-menu">
         <ion-scroll zooming="true" direction="x" scrollbar-x="false" class="categories-filter">
-			<span class="footer-col" ng-repeat="links in footerLinks"  ng-click="footerLink(links)">
+			<span class="footer-col" ng-repeat="links in footerLinks" ng-click="footerLink(links)">
                 <div class="row row-no-padding padding-top-5" >
                     <div class="col ">
                         <i class="icon" ng-class="links.icon"></i>
@@ -37,18 +33,6 @@
                 <div class="row row-no-padding padding-top-5" >
                     <div class="col ">
                         {{links.name}}
-                    </div>
-                </div>
-            </span>
-            <span class="footer-col" ng-click="openCart()">
-                <div class="row row-no-padding padding-top-5" >
-                    <div class="col ">
-                        <i class="icon ion-android-cart"></i>
-                    </div>
-                </div>
-                <div class="row row-no-padding padding-top-5" >
-                    <div class="col ">
-                        Cart
                     </div>
                 </div>
             </span>
