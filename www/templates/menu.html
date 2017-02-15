@@ -30,29 +30,29 @@
                 <!--<i class="icon ln-gear2 small" ui-sref="app.setting" menu-close ng-if="menu.setting"></i>-->
             <!--</ion-item>-->
         <!--</div>-->
-        <ion-content class="no-header ">
+        <ion-content class="no-header raleway">
             <div class=" ecomm-transition" ng-class="{'ecomm-translate':ecommMenu}">
                 <div class="list menu-set">
                     <!--<ion-item nav-clear menu-and-drawer-close settings-modal class="item item-icon-left item-complex item-simple"-->
                               <!--ng-click="closeDrawer()">-->
                         <!--<i class="icon ln-arrow-right2"></i>Settings-->
                     <!--</ion-item>-->
-                    <ion-item nav-clear menu-and-drawer-close ecomm-modal class="item item-icon-left item-complex item-simple"
+                    <ion-item nav-clear menu-and-drawer-close ecomm-modal class="item item-icon-left font-18 item-complex item-simple"
                               ng-click="closeDrawer()">
                        <i class="icon ln-arrow-right2"></i>E-commerce
                     </ion-item>
                     <ion-item ng-if="RSSarray.length!=0" nav-clear menu-and-drawer-close
-                              class="item item-icon-left" ng-click="closeDrawer()"
+                              class="item item-icon-left font-18" ng-click="closeDrawer()"
                               ui-sref="app.RSS"
                               ui-sref-active="bordered">
                         <i class="icon ion-clipboard"></i>Breaking News
                     </ion-item>
-                    <ion-item nav-clear menu-and-drawer-close class="item item-icon-left"
+                    <ion-item nav-clear menu-and-drawer-close class="item item-icon-left font-18"
                               ng-click="closeDrawer()" ui-sref="walkthrough"
                               ui-sref-active="bordered">
                         <i class="icon ln-arrow-right2"></i>App Tour
                     </ion-item>
-                    <ion-item nav-clear menu-and-drawer-close class="item item-icon-left" ng-click="closeDrawer()"
+                    <ion-item nav-clear menu-and-drawer-close class="item item-icon-left font-18" ng-click="closeDrawer()"
                               ui-sref="app.{{menu.link}}({id:menu.typeid,name:menu.name})"
                               ui-sref-active="bordered" ng-repeat="menu in menudata">
                         <i class="icon {{menu.icon}}"></i>{{menu.name}}

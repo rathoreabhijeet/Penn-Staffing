@@ -33,7 +33,7 @@ angular.module('starter')
         $scope.showloading();
         $scope.videoid = $stateParams.id;
         console.log($stateParams.id);
-        $scope.videoListImage = "http://business.staging.appturemarket.com/uploads/video-image/"+$stateParams.image;
+        $scope.videoListImage = "http://power5.simpl.life/uploads/video-image/"+$stateParams.image;
 
         function fetchGalleryVideoData() {
             $ionicLoading.show({

@@ -18,13 +18,27 @@
     font-weight: normal;
     font-style: normal;
 }
+@font-face {
+    font-family: 'Raleway';
+    src: url('../fonts/Raleway-Light.eot');
+    src: url('../fonts/Raleway-Light.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/Raleway-Light.woff2') format('woff2'),
+    url('../fonts/Raleway-Light.woff') format('woff'),
+    url('../fonts/Raleway-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
 .playfair{
     font-family: "Playfair Display",sans-serif ;
 }
 .cutive{
     font-family: "Cutive",sans-serif ;
 }
-
+.raleway{
+    font-family: "Raleway",sans-serif ;
+    font-weight: 300;
+    font-style: normal;
+}
 .header-image {
     background-size: cover;
     background-position: center center;
@@ -996,4 +1010,10 @@ drawer .item-complex .item-content {
 .bar-translucent {
     background-color: rgba(0, 0, 0, 0.7) !important;
     color: white;
+}
+.font-18, .font-18 a{
+    font-size: 18px !important;
+}
+.font-18 a{
+    padding-right: 10px !important;
 }

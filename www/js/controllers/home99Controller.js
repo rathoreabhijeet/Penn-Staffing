@@ -241,7 +241,7 @@ angular.module('starter')
         }
 
         function sortRssLinks(data) {
-            $scope.menudata.length=0;
+            // $scope.menudata.length=0;
 
             // console.log(data);
             _.each(data.menu, function (n, index) {

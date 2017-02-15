@@ -3,10 +3,10 @@
 * COLORS
 */
 /*  Fonts  */
-@import url(https://fonts.googleapis.com/css?family=Lato|Playfair+Display:400,400italic);
-* {
-  font-family: "Lato", sans-serif;
-}
+/*@import url(https://fonts.googleapis.com/css?family=Lato|Playfair+Display:400,400italic);*/
+/** {*/
+  /*font-family: "Lato", sans-serif;*/
+/*}*/
 
 /*h1, h2, h3, h4, h5, h6 {*/
   /*font-family: "Playfair Display", serif;*/
