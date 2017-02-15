@@ -1,0 +1,72 @@
+<ion-view hide-back-button="true">
+    <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-navicon" menu-and-drawer-toggle>
+        </button>
+    </ion-nav-buttons>
+    <ion-nav-title >
+        <h1 class="title company-logo article-header-logo">
+            <img src="{{headerLogo}}" class="header-logo-image">
+        </h1>
+    </ion-nav-title>
+    <ion-nav-buttons side="right">
+        <button class="button button-icon button-clear ion-bag" ecomm-modal
+                ng-if="cartItems.length==0">
+        </button>
+        <button class="button button-icon button-clear ion-bag padding-right-10" ecomm-modal ng-if="cartItems.length>0">
+            <span class="badge badge-assertive absolute right-0" >{{cartItems.length}}</span>
+        </button>
+    </ion-nav-buttons>
+    <div class="text-center positive middle-align" ng-if="msg != ''">
+        {{msg}}
+    </div>
+    <ion-content>
+        <div ng-if="singlePage">
+            <img class="full-image" alt="" cache-src="{{article.image|serverimage}}" ng-if="article.image">
+            <div class="padding">
+                <h3>{{article.title}}</h3>
+                <div ng-bind-html="article.content"></div>
+            </div>
+        </div>
+        <div class="padding card" ng-repeat="blog in blogs" ng-if="!singlePage" ng-click="blogDetail(blog,'wordpressself')">
+            <ion-item class="item-avatar item-icon-right">
+                <img class="image-adjust img-blog" ng-src="{{blog.imageLink}}">
+                <!--                <h2>{{blog.author.first_name}} {{blog.author.last_name}}</h2>-->
+                <h2 class="blog-title">{{blog.title}}</h2>
+                <p>{{blog.formattedDate|date:'MMMM dd, yyyy'}}</p>
+            </ion-item>
+            <!--<div class="item item-body" ng-click="blogDetail(blog,'wordpressself');">-->
+                <!--<p>-->
+                    <!--<span ng-bind-html="blog.content|cut:true:367:'. . .'|rawHtml"></span>-->
+                <!--</p>-->
+            <!--</div>-->
+        </div>
+    </ion-content>
+    <ion-footer-bar class="margin-0 padding-0 footer-menu">
+        <ion-scroll zooming="true" direction="x" scrollbar-x="false" class="categories-filter">
+			<span class="footer-col" ng-repeat="links in footerLinks"  ng-click="footerLink(links)">
+                <div class="row row-no-padding padding-top-5" >
+                    <div class="col ">
+                        <i class="icon" ng-class="links.icon"></i>
+                    </div>
+                </div>
+                <div class="row row-no-padding padding-top-5" >
+                    <div class="col ">
+                        {{links.name}}
+                    </div>
+                </div>
+            </span>
+            <span class="footer-col" ng-click="openCart()">
+                <div class="row row-no-padding padding-top-5" >
+                    <div class="col ">
+                        <i class="icon ion-android-cart"></i>
+                    </div>
+                </div>
+                <div class="row row-no-padding padding-top-5" >
+                    <div class="col ">
+                        Cart
+                    </div>
+                </div>
+            </span>
+        </ion-scroll>
+    </ion-footer-bar>
+</ion-view>

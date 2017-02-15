@@ -1,0 +1,53 @@
+<ion-view view-title="Contact">
+    <ion-content>
+        <div class="button-bar">
+            <a class="button button-positive button-outline" ng-class="{'underline':tab=='contactus'}" ng-click="tabchange('contactus',1)">Contact us</a>
+            <a class="button button-positive button-outline" ng-class="{'underline':tab=='contactform'}" ng-click="tabchange('contactform',2)">Contact form</a>
+        </div>
+        <div class="contactus" ng-show="tab=='contactus'">
+            <div class="address">
+                <div class="card">
+                    <div class="list item-text-wrap">
+                        <div class="item item-icon-left">
+                            <i class="icon ln-home3"></i> {{contact.content}}
+                        </div>
+                        <a ng-href="tel:{{contact.text}}" class="item item-icon-left">
+                            <i class="icon ln-phone2"></i> {{contact.text}}
+                        </a>
+                        <a ng-href="mailto:{{contact.type}}" class="item item-icon-left">
+                            <i class="icon ln-envelope"></i> {{contact.type}}
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="map" ng-bind-html="contact.description|rawHtml">
+            </div>
+        </div>
+        </div>
+        <div class="contactform" ng-show="tab=='contactform'">
+            <div class="list padding smart-form">
+                <label class="item item-input item-floating-label" ng-class="allvalidation[0].validation">
+                    <span class="input-label">Full Name</span>
+                    <input type="text" placeholder="Full name" ng-model="enquiry.name">
+                </label>
+                <label class="item item-input item-floating-label" ng-class="allvalidation[1].validation">
+                    <span class="input-label">Email</span>
+                    <input type="email" placeholder="Email" ng-model="enquiry.email">
+                </label>
+                <label class="item item-input item-floating-label" ng-class="allvalidation[2].validation">
+                    <span class="input-label">Subject</span>
+                    <input type="text" placeholder="Subject" ng-model="enquiry.title">
+                </label>
+                <label class="item item-input item-floating-label" ng-class="allvalidation[3].validation">
+                    <span class="input-label">Comments</span>
+                    <textarea placeholder="Comments" ng-model="enquiry.content"></textarea>
+                </label>
+            </div>
+            <div class="padding-horizontal">
+                <button class="button button-block button-positive" ng-click="enquiryform(enquiry);">
+                    Submit
+                </button>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

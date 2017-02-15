@@ -1,0 +1,134 @@
+<ion-view hide-nav-bar="true" class="dark-bg">
+    <ion-header-bar class="bar-clear transparent-bg">
+        <div class="buttons">
+            <!--<div class="img-rounded light-bg">-->
+            <button class="button button-icon icon ion-android-arrow-back sparup-orange"
+                    ng-click="signup.goToLogin()"></button>
+            <!--</div>-->
+        </div>
+    </ion-header-bar>
+    <ion-content class="no-header padding-top-30" style="top: 0;">
+        <div ng-style="signup.fullHeight">
+            <form name="createAccountForm" novalidate ng-submit="!createAccountForm.$valid||(signup.user.Cpassword!=user.password)||signup.newSignUp()">
+                <div class="relative">
+                    <div class="row row-no-padding padding-top-5 margin-bottom-30">
+                        <div class="col text-center text-xx-large stable">
+                            Sign up
+                        </div>
+                    </div>
+                    <!--<div class="row row-no-padding margin-bottom-20 div-centered-60 signup">-->
+                        <!--<div class="col text-center text-16 gray">-->
+                            <!--Register as a customer-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <div class="">
+                        <div ng-style="signup.paddingHorizontal">
+                            <div class="list list-inset margin-0 transparent-bg ">
+                                <label class="item item-input login-label transparent-bg">
+                                    <input class="login-input" type="text" placeholder="First Name" name="firstName"
+                                           ng-model="user.firstName"
+                                           ng-required="true">
+                                </label>
+                                <div class="errors-light-bg ">
+                                    <p ng-if="createAccountForm.firstName.$error.required && submitted==true">First
+                                        Name is required</p>
+                                </div>
+                            </div>
+
+                            <div class="list list-inset margin-0 transparent-bg ">
+                                <label class="item item-input login-label transparent-bg">
+                                    <input class="login-input" type="text" placeholder="Last Name" ng-model="user.lastName" name="lastName"
+                                           ng-required="true">
+                                </label>
+                                <div class="errors-light-bg ">
+                                    <p ng-if="createAccountForm.lastName.$error.required && submitted==true">
+                                        Last Name is required</p>
+                                </div>
+                            </div>
+
+                            <div class="list list-inset margin-0 transparent-bg ">
+                                <label class="item item-input login-label transparent-bg">
+                                    <input class="login-input" type="text" placeholder="User Name" ng-model="user.userName"
+                                           name="userName"
+                                           ng-required="true">
+                                </label>
+                                <div class="errors-light-bg ">
+                                    <p ng-if="createAccountForm.userName.$error.required && submitted==true">userName is
+                                        required</p>
+                                </div>
+                            </div>
+                            <div class="list list-inset margin-0 transparent-bg ">
+                                <label class="item item-input login-label transparent-bg">
+                                    <input class="login-input" type="email" placeholder="Email" ng-model="user.email" name="email"
+                                           ng-blur="checkEmail=true" ng-required="true">
+                                </label>
+                                <div class="errors-light-bg ">
+                                    <p ng-if="createAccountForm.email.$error.required && submitted==true || createAccountForm.email.$invalid && checkEmail==true">
+                                        Invalid Email</p>
+                                </div>
+                            </div>
+
+                            <div class="list list-inset margin-0 transparent-bg ">
+                                <label class="item item-input login-label transparent-bg">
+                                    <input class="login-input" type="password" placeholder="Password" ng-model="user.password"
+                                           name="password"
+                                           ng-required="true">
+                                </label>
+                                <div class="errors-light-bg ">
+                                    <p ng-if="createAccountForm.password.$error.required && submitted==true">Password is
+                                        required</p>
+                                </div>
+                            </div>
+
+                            <div class="list list-inset margin-0 transparent-bg ">
+                                <label class="item item-input login-label transparent-bg">
+                                    <input class="login-input" type="password" placeholder="Repeat Password"
+                                           ng-model="signup.user.Cpassword" name="Cpassword"
+                                           ng-required="true">
+                                </label>
+                                <div class="errors-light-bg">
+                                    <p ng-if="signup.user.Cpassword!=user.password && submitted==true">Password
+                                        mismatch</p>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <!--<div class="row ">-->
+                    <!--<div class="col text-center ">-->
+                        <!--or login using-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="row">-->
+                    <!--<div class="col text-right">-->
+                        <!--<img src="img/fbIcon.png" ng-style="signup.socialLoginButton" ng-click="signup.facebookSignIn()">-->
+                    <!--</div>-->
+                    <!--<div class="col">-->
+                        <!--<img src="img/googleIcon.png" ng-style="signup.socialLoginButton" ng-click="signup.googleLogin()">-->
+                    <!--</div>-->
+                <!--</div>-->
+
+                <div class="row ">
+                    <div class="col errors-light-bg text-center" ng-if="signup.userExistsError">
+                        User Exists
+                    </div>
+                </div>
+                <div ng-style="signup.joinButton">
+                    <div class="row row-no-padding ">
+                        <div class="col">
+                            <button class="button button-block button-calm text-large"
+                                    ng-click="submitted=true">Create Profile
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+
+            </form>
+        </div>
+    </ion-content>
+
+</ion-view>

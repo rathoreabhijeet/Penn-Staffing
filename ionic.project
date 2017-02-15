@@ -1,0 +1,11 @@
+{
+  "name": "BusinessApp",
+  "app_id": "a1b01b91",
+  "proxies": [
+  {
+    "path": "/api.json",
+    "proxyUrl": "http://rss2json.com/api.json"
+  }
+]
+
+}

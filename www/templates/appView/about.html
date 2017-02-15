@@ -1,0 +1,41 @@
+<ion-view view-title="About">
+    <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-navicon" menu-and-drawer-toggle>
+        </button>
+    </ion-nav-buttons>
+    <ion-content>
+        <img class="full-image" alt="" cache-src="http://ionicframework.com/img/docs/delorean.jpg">
+        <div class="padding">
+            <h3>"Difference-a-header-makes...."</h3>
+            <p>Our websites are our online homes. It makes sense that we want&nbsp;to give them personality and warmth,&nbsp;just like we do with our physical homes. Our websites are our online homes. It makes sense that we want&nbsp;to give them personality and warmth,&nbsp;just like we do with our physical homes.</p>
+        </div>
+    </ion-content>
+    <ion-footer-bar class="margin-0 padding-0 footer-menu">
+        <ion-scroll zooming="true" direction="x" scrollbar-x="false" class="categories-filter">
+			<span class="footer-col" ng-repeat="links in footerLinks"  ng-click="footerLink(links)">
+                <div class="row row-no-padding padding-top-5" >
+                    <div class="col ">
+                        <i class="icon" ng-class="links.icon"></i>
+                    </div>
+                </div>
+                <div class="row row-no-padding padding-top-5" >
+                    <div class="col ">
+                        {{links.name}}
+                    </div>
+                </div>
+            </span>
+            <span class="footer-col" ng-click="openCart()">
+                <div class="row row-no-padding padding-top-5" >
+                    <div class="col ">
+                        <i class="icon ion-android-cart"></i>
+                    </div>
+                </div>
+                <div class="row row-no-padding padding-top-5" >
+                    <div class="col ">
+                        Cart
+                    </div>
+                </div>
+            </span>
+        </ion-scroll>
+    </ion-footer-bar>
+</ion-view>

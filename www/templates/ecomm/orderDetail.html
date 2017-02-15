@@ -1,0 +1,145 @@
+<ion-view>
+    <ion-nav-buttons side="right">
+        <button class="button button-icon icon ion-android-cart" ng-if="!cartItems.length" ng-click="openCart()">
+        </button>
+        <button class="button button-icon icon ion-android-cart padding-right-10" ng-click="openCart()"
+                ng-if="cartItems.length">
+            <span class="badge badge-assertive absolute right-0">{{cartItems.length}}</span>
+        </button>
+    </ion-nav-buttons>
+    <ion-nav-title >
+        <h1 class="title company-logo article-header-logo">
+            <img src="{{headerLogo}}" class="header-logo-image">
+        </h1>
+    </ion-nav-title>
+	<ion-content class="checkout">
+		<div class="item item-divider">
+		  ORDER SUMMARY
+		</div>
+		<div class="padding">
+            <label class="item item-input item-floating-label item-icon-right">
+                <div class="form-control">
+                    <span>Status</span>
+                    <span class="pull-right">
+                        {{orderDetail.order.status}}
+                    </span>
+                </div>
+            </label>
+            <label class="item item-input item-floating-label item-icon-right">
+                <div class="form-control">
+                    <span>Payment Method</span>
+                    <span class="pull-right">
+                        {{orderDetail.order.payment_details.method_title}}
+                    </span>
+                </div>
+            </label>
+            <label class="item item-input item-floating-label item-icon-right">
+                <div class="form-control">
+                    <span>Shipping Method</span>
+                    <span class="pull-right" ng-bind-html="orderDetail.order.shipping_lines[0].method_title">
+                    </span>
+                </div>
+            </label>
+            <label class="item item-input item-floating-label item-icon-right">
+                <div class="form-control">
+                    <span>Shipping Cost</span>
+                    <span class="pull-right" ng-bind-html="orderDetail.order.shipping_lines[0].total | currency:format:decimal"></span>
+                </div>
+            </label>
+            <label ng-if="orderDetail.order.note" class="item item-input item-floating-label item-icon-right">
+                <div class="form-control">
+                    <span>Notes</span>
+                    <span class="pull-right">
+                        {{orderDetail.order.note}}
+                    </span>
+                </div>
+            </label>
+            <label class="item item-input item-floating-label item-icon-right">
+                <div class="form-control">
+                    <span>Subtotal</span>
+                    <span class="pull-right" ng-bind-html="orderDetail.order.subtotal | currency:format:decimal"></span>
+                </div>
+            </label>
+            <label class="item item-input item-floating-label item-icon-right">
+                <div class="form-control">
+                    <span>TOTAL</span>
+                    <span class="pull-right" ng-bind-html="orderDetail.order.total | currency:format:decimal"></span>
+                </div>
+            </label>
+        </div>
+        <div class="item item-divider">
+           SHIPPING ADDRESS
+        </div>
+        <div class="padding">
+            <label class="item item-input item-floating-label item-icon-right">
+                <div class="form-control">
+                    <span>First Name</span>
+                    <span class="pull-right">
+                        {{orderDetail.order.shipping_address.first_name}}
+                    </span>
+                </div>
+            </label>
+            <label class="item item-input item-floating-label item-icon-right">
+                <div class="form-control">
+                    <span>Last Name</span>
+                    <span class="pull-right">
+                        {{orderDetail.order.shipping_address.last_name}}
+                    </span>
+                </div>
+            </label>
+            <label class="item item-input item-floating-label item-icon-right">
+                <div class="form-control">
+                    <span>Country</span>
+                    <span class="pull-right">
+                        {{orderDetail.order.shipping_address.country}}
+                    </span>
+                </div>
+            </label>
+            <label class="item item-input item-floating-label item-icon-right">
+                <div class="form-control">
+                    <span>Address</span>
+                    <span class="pull-right">
+                        {{orderDetail.order.shipping_address.address_1}}
+                    </span>
+                </div>
+            </label>
+            <label class="item item-input item-floating-label item-icon-right">
+                <div class="form-control">
+                    <span>City</span>
+                    <span class="pull-right">
+                        {{orderDetail.order.shipping_address.city}}
+                    </span>
+                </div>
+            </label>
+            <label class="item item-input item-floating-label item-icon-right">
+                <div class="form-control">
+                    <span>State</span>
+                    <span class="pull-right">
+                        {{orderDetail.order.shipping_address.state}}
+                    </span>
+                </div>
+            </label>
+            <label class="item item-input item-floating-label item-icon-right">
+                <div class="form-control">
+                    <span>Postcode</span>
+                    <span class="pull-right">
+                        {{orderDetail.order.shipping_address.postcode}}
+                    </span>
+                </div>
+            </label>
+        </div>
+        <div class="item item-divider">
+		   LINE ITEMS
+		</div>
+		<ion-list class="cart">
+            <ion-item ng-repeat="x in orderDetail.order.line_items track by $index" class="item">
+                <div class="cart-detail">
+                    <h2>{{x.name}}</h2>
+                    <span ng-if="x.meta[0].key">{{x.meta[0].label}}: {{x.meta[0].value}}</span>
+                    <div class="price" ng-bind-html="(x.quantity * x.price) | currency:format:decimal"></div>
+                    <h3>Qty: {{x.quantity}} items</h3>
+                </div>
+            </ion-item>
+        </ion-list>
+	</ion-content>
+</ion-view>

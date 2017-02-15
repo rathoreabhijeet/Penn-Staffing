@@ -1,0 +1,40 @@
+<ion-view hide-nav-bar="true">
+    <ion-header-bar class="bar bar-transparent">
+        <div class="buttons">
+            <button class="button button-icon icon ion-navicon" ng-click="toggleDrawerRoot()">
+            </button>
+        </div>
+        <h1 class="title"></h1>
+    </ion-header-bar>
+    <ion-content class="no-header dark-bg" style="top:0">
+        <ion-slide-box ng-style="sliderheight">
+            <ion-slide ng-repeat="slide in slides track by $index" class="text-center slider-bg"
+                       cache-src="{{slide.image | serverimage}}"
+                       src-is="background"
+                       background-loading-style=" no-repeat center">
+                <!--<img alt="" cache-src="{{slide.image | serverimage}}" class="full-height img-shadow">-->
+            </ion-slide>
+        </ion-slide-box>
+        <div ng-repeat="category in categories">
+            <div class="row">
+                <div class="col light bold text-medium">
+                    {{category|capitalize}}
+                </div>
+            </div>
+            <ion-scroll direction="x" zooming="false" class="full-width">
+                <div class="hrz-slider">
+                    <div class="hrz-slider-item" ng-repeat="cat in RSS|filterVideoByCategories:category">
+                        <div class="item-image" ng-style="RSSCat" ng-click="goToRssSingle(cat.name,cat.title)">
+                            <img class="full-image full-height" alt="" cache-src="{{cat.image|serverimage}}">
+                            <h3 class="RSS-category">{{cat.name}}</h3>
+                        </div>
+                    </div>
+                </div>
+            </ion-scroll>
+        </div>
+
+    </ion-content>
+    <div ng-style="fullDim" class="loading-bg" ng-if="loading">
+        <ion-spinner icon="ios" class="spinner-light spinner-center"></ion-spinner>
+    </div>
+</ion-view>

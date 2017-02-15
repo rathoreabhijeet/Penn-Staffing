@@ -1,0 +1,84 @@
+<ion-view view-title="">
+    <ion-nav-buttons side="right">
+        <button class="button button-icon button-clear ion-bag" ecomm-modal ng-if="cartItems.length==0">
+        </button>
+        <button class="button button-icon button-clear ion-bag padding-right-10" ecomm-modal ng-if="cartItems.length>0">
+            <span class="badge badge-assertive absolute right-0" >{{cartItems.length}}</span>
+        </button>
+    </ion-nav-buttons>
+    <ion-nav-title >
+        <h1 class="title company-logo article-header-logo">
+            <img src="{{headerLogo}}" class="header-logo-image">
+        </h1>
+    </ion-nav-title>
+    <!--<ion-header-bar class="bar-positive">-->
+    <!--<div class="buttons">-->
+    <!--<button class="button button-icon icon ion-ios-arrow-left" ng-click="backToParentRSS()"></button>-->
+    <!--</div>-->
+    <!--</ion-header-bar>-->
+    <ion-header-bar class="bar-subheader bar-dark" align-title="center">
+        <div class="buttons">
+            <button class="button button-icon icon ion-arrow-left-b" ng-click="goToPreviousArticle()"></button>
+        </div>
+        <h1 class="title">{{name}} {{currentArticle}}/{{totalArticles}}</h1>
+        <div class="buttons">
+            <button class="button button-icon icon ion-arrow-right-b" ng-click="goToNextArticle()"></button>
+        </div>
+    </ion-header-bar>
+    <ion-content>
+        <ion-item class="padding-0">
+            <div class="item-image"
+                 ng-style="{'background-image': 'url(' + article.imageLink + ')'}">
+                <!--<img cache-src="{{article.image}}">-->
+                <div class="titles">
+                    <h1 class="playfair">{{article.title}}</h1>
+                    <h3 class="bold">{{article.subTitle}}</h3>
+                </div>
+            </div>
+            <div class="item-content">
+                <div class="row">
+                    <div class="col bold italic"><i class="icon ion-radio-waves padding-right-5 positive"></i>{{article.author}}
+                    </div>
+                    <div class="col" style="font-size: 1.1em"><i class="icon ion-clock padding-right-5 positive"></i>{{article.pubDate
+                        | date:'MMM dd, yyyy'}}
+                    </div>
+                </div>
+                <div class="row padding-top-15">
+                    <div class="col">
+                        <p class="article-content" ng-bind-html="article.content"></p>
+                    </div>
+                </div>
+                <srf-social-share data-config="itemCtrl.share"></srf-social-share>
+            </div>
+        </ion-item>
+    </ion-content>
+    <ion-footer-bar class="margin-0 padding-0 footer-menu">
+        <ion-scroll zooming="true" direction="x" scrollbar-x="false" class="categories-filter">
+			<span class="footer-col" ng-repeat="links in footerLinks"
+                  ng-click="footerLink(links)">
+                <div class="row row-no-padding padding-top-5">
+                    <div class="col ">
+                        <i class="icon" ng-class="links.icon"></i>
+                    </div>
+                </div>
+                <div class="row row-no-padding padding-top-5">
+                    <div class="col ">
+                        {{links.name}}
+                    </div>
+                </div>
+            </span>
+            <span class="footer-col" ng-click="openCart()">
+                <div class="row row-no-padding padding-top-5">
+                    <div class="col ">
+                        <i class="icon ion-android-cart"></i>
+                    </div>
+                </div>
+                <div class="row row-no-padding padding-top-5">
+                    <div class="col ">
+                        Cart
+                    </div>
+                </div>
+            </span>
+        </ion-scroll>
+    </ion-footer-bar>
+</ion-view>

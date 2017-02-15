@@ -1,0 +1,31 @@
+<ion-view>
+
+    <ion-content scroll="false">
+        <div class="walkthrough-slider" ng-style="fullDim">
+            <ion-slide-box on-slide-changed="slideHasChanged($index)" class="full-height">
+                <ion-slide>
+                    <div class="slide slide1 full-height"></div>
+                </ion-slide>
+                <ion-slide>
+                    <div class="slide slide2 full-height"></div>
+                </ion-slide>
+                <ion-slide>
+                    <div class="slide slide3 full-height"></div>
+                </ion-slide>
+                <ion-slide>
+                    <div class="slide slide4 full-height"></div>
+                </ion-slide>
+                <ion-slide>
+                    <div class="slide slide5 full-height"></div>
+                </ion-slide>
+                <ion-slide>
+                    <div class="slide slide7 full-height"></div>
+                    <div class="enter-button">
+                        <button class="button button-light button-outline hidden-button" ng-click="goToApp()">Enter</button>
+                    </div>
+                </ion-slide>
+            </ion-slide-box>
+        </div>
+    </ion-content>
+
+</ion-view>

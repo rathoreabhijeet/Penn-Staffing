@@ -1,0 +1,70 @@
+<ion-view view-title="Social Feeds" hide-back-button="true">
+    <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-navicon" menu-and-drawer-toggle>
+        </button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+        <button class="button button-icon button-clear ion-bag" ecomm-modal
+                ng-if="cartItems.length==0">
+        </button>
+        <button class="button button-icon button-clear ion-bag padding-right-10" ecomm-modal ng-if="cartItems.length>0">
+            <span class="badge badge-assertive absolute right-0" >{{cartItems.length}}</span>
+        </button>
+    </ion-nav-buttons>
+    <ion-content>
+        <ion-list>
+            <div class="row row-wrap row-no-padding category-items">
+                <ion-item class="col col-50 margin-0 no-border">
+                    <div class="row row-no-padding margin-0" ng-repeat="soc in social" ng-if="$index%2==0">
+                        <div class="col">
+                            <div class="item-image" ng-style="RSSCat" ng-click="goSocial(soc.value)">
+                                <img class="full-image" alt="" cache-src="{{soc.image}}">
+                                <!--<img class="full-image" alt="" cache-src="{{cat.image|serverimage}}">-->
+                                <!--<h3 class="RSS-category">{{cat.name}}</h3>-->
+                            </div>
+                        </div>
+                    </div>
+                </ion-item>
+                <ion-item class="col col-50 margin-0 no-border">
+                    <div class="row row-no-padding margin-0" ng-repeat="soc in social" ng-if="$index%2!=0">
+                        <div class="col">
+                            <div class="item-image" ng-style="RSSCat" ng-click="goSocial(soc.value)">
+                                <img class="full-image" alt="" cache-src="{{soc.image}}">
+                                <!--<img class="full-image" alt="" cache-src="{{cat.image|serverimage}}">-->
+                                <!--<h3 class="RSS-category">{{cat.name}}</h3>-->
+                            </div>
+                        </div>
+                    </div>
+                </ion-item>
+            </div>
+        </ion-list>
+    </ion-content>
+    <ion-footer-bar class="margin-0 padding-0 footer-menu">
+        <ion-scroll zooming="true" direction="x" scrollbar-x="false" class="categories-filter">
+			<span class="footer-col" ng-repeat="links in footerLinks" ng-click="footerLink(links)">
+                <div class="row row-no-padding padding-top-5" >
+                    <div class="col ">
+                        <i class="icon" ng-class="links.icon"></i>
+                    </div>
+                </div>
+                <div class="row row-no-padding padding-top-5" >
+                    <div class="col ">
+                        {{links.name}}
+                    </div>
+                </div>
+            </span>
+            <span class="footer-col" ng-click="openCart()">
+                <div class="row row-no-padding padding-top-5" >
+                    <div class="col ">
+                        <i class="icon ion-android-cart"></i>
+                    </div>
+                </div>
+                <div class="row row-no-padding padding-top-5" >
+                    <div class="col ">
+                        Cart
+                    </div>
+                </div>
+            </span>
+        </ion-scroll>
+    </ion-footer-bar>
+</ion-view>

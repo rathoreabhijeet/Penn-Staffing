@@ -1,0 +1,18 @@
+<ion-view view-title={{homeName}} hide-back-button="true">
+    <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-navicon" menu-and-drawer-toggle>
+        </button>
+    </ion-nav-buttons>
+    <ion-content>
+        <ion-slide-box ng-style="sliderheight ">
+            <ion-slide ng-repeat="slide in slides track by $index" class="text-center slider-bg"
+                       cache-src="{{slide.image | serverimage}}"
+                       src-is="background"
+                       background-loading-style=" no-repeat center 10%">
+            <!--ng-style="{'background-image':'url('+(slide.image | serverimage)+')'}">-->
+                <!--<img alt="" cache-src="{{slide.image | serverimage}}" class="full-height img-shadow">-->
+            </ion-slide>
+        </ion-slide-box>
+        <div class="padding" ng-bind-html="content.content"></div>
+    </ion-content>
+</ion-view>

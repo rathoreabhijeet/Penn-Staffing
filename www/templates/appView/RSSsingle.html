@@ -1,0 +1,86 @@
+<ion-view >
+    <ion-nav-buttons side="right">
+        <button class="button button-icon button-clear ion-bag" ecomm-modal ng-if="cartItems.length==0">
+        </button>
+        <button class="button button-icon button-clear ion-bag padding-right-10" ecomm-modal ng-if="cartItems.length>0">
+            <span class="badge badge-assertive absolute right-0" >{{cartItems.length}}</span>
+        </button>
+    </ion-nav-buttons>
+    <ion-nav-title >
+        <h1 class="title company-logo article-header-logo">
+            <img src="{{headerLogo}}" class="header-logo-image">
+        </h1>
+    </ion-nav-title>
+    <ion-header-bar class="bar-subheader bar-dark" align-title="center">
+        <div class="buttons">
+            <button class="button button-icon icon ion-arrow-left-b" ng-click="buttonClicked =true;goToPreviousRSS()"></button>
+        </div>
+        <h1 class="title">{{name}}</h1>
+        <div class="buttons">
+            <button class="button button-icon icon ion-arrow-right-b" ng-click="buttonClicked =true;goToNextRSS()"></button>
+        </div>
+    </ion-header-bar>
+    <ion-content class="has-subheader">
+        <ion-slide-box show-pager="false" ng-init="lockSlide()" >
+            <ion-slide ng-repeat="bloglist in blogs">
+                <ion-list>
+                    <ion-item class="category-ion-item"
+                              ng-repeat="blog in bloglist" ng-click="goToRssArticle($index)">
+                        <div class="row row-no-padding row-wrap category-items">
+                            <div class="category-item-image col col-33"
+                                 cache-src="{{blog.imageLink}}"
+                                 src-is="background"
+                                 background-loading-style=" no-repeat center 30%">
+                                <!--ng-style="{'background-image': 'url(' + blog.imageLink + ')'}"-->
+                                <!--<img cache-src="{{blog.imageLink}}"/>-->
+                            </div>
+                            <div class="category-item-tools col col-66 padding-10">
+                                <h3 class="text-wrap text-medium">{{blog.title}}</h3>
+                                <div class="row row-no-padding padding-bottom-10">
+                                    <div class="col"><i class="icon ion-radio-waves padding-right-5"></i>{{blog.author}}
+                                    </div>
+                                </div>
+
+                                <div class="row row-no-padding">
+                                    <div class="col "><i class="icon ion-clock padding-right-5"></i>{{blog.pubDate | date:'MMM dd, yyyy'}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ion-item>
+                </ion-list>
+            </ion-slide>
+        </ion-slide-box>
+    </ion-content>
+    <ion-footer-bar class="margin-0 padding-0 footer-menu">
+        <ion-scroll zooming="true" direction="x" scrollbar-x="false" class="categories-filter">
+			<span class="footer-col" ng-repeat="links in footerLinks"  ng-click="footerLink(links)">
+                <div class="row row-no-padding padding-top-5" >
+                    <div class="col ">
+                        <i class="icon" ng-class="links.icon"></i>
+                    </div>
+                </div>
+                <div class="row row-no-padding padding-top-5" >
+                    <div class="col ">
+                        {{links.name}}
+                    </div>
+                </div>
+            </span>
+            <span class="footer-col" ng-click="openCart()">
+                <div class="row row-no-padding padding-top-5" >
+                    <div class="col ">
+                        <i class="icon ion-android-cart"></i>
+                    </div>
+                </div>
+                <div class="row row-no-padding padding-top-5" >
+                    <div class="col ">
+                        Cart
+                    </div>
+                </div>
+            </span>
+        </ion-scroll>
+    </ion-footer-bar>
+    <div ng-style="fullDim" class="loading-bg" ng-if="loading">
+        <ion-spinner icon="ios" class="spinner-light spinner-center"></ion-spinner>
+    </div>
+</ion-view>

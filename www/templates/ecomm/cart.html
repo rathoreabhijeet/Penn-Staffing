@@ -1,0 +1,56 @@
+<ion-modal-view class="cart">
+    <ion-header-bar class="bar bar-positive">
+      <h1 class="title">Cart</h1>
+      <div class="buttons">
+         <a class="button button-icon icon ion-android-close" ng-click="closeCart()"></a>
+     </div>
+    </ion-header-bar>
+    <ion-content>
+        <div class="row" ng-if="cartItems.length==0">
+            <div class="col text-center">
+                <i class="icon ion-ios-cart-outline positive-blue" style="font-size: 120px"></i>
+            </div>
+        </div>
+        <div class="row" ng-if="cartItems.length==0">
+            <div class="col text-center">
+                <h3>No items in cart</h3>
+            </div>
+        </div>
+        <div class="row" ng-if="cartItems.length==0">
+            <div class="col text-center">
+                <button class="button button-dark round" ng-click="closeCart()" ui-sref="app.ecommhome">Let's shop</button>
+            </div>
+        </div>
+        <div class="list">
+            <div class="item item-thumbnail-left" ng-repeat="cartItem in cartItems">
+                <img ng-src="{{cartItem.images[0].src}}" alt="" ui-sref="app.product({id:cartItem.id})" ng-click="closeCart()">
+                <h2 class="title" ui-sref="app.product({id:cartItem.id})" ng-click="closeCart()">{{cartItem.name}} </h2>
+                <div class="info" ng-if="cartItem.selectedAttrs != null">
+                    <span ng-repeat="attrValue in cartItem.attrValues">{{attrValue}} <span ng-if="$index < cartItem.attrValues.length-1">, </span></span>
+                </div>
+                <h3 class="price" ui-sref="app.product({id:cartItem.id})" ng-click="closeCart()" ng-bind-html="cartItem.price_html"></h3>
+                <span class="category" ui-sref="app.product({id:cartItem.id})" ng-click="closeCart()" ng-repeat="cartCategorie in cartItem.categories">{{cartCategorie.name}}<span ng-if="$index < cartItem.categories.length-1">, </span></span>
+                <a class="button button-icon icon ion-ios-minus-outline remove-btn" ng-click="removeFromCart(cartItem)"></a>
+            </div>
+        </div>
+        <div class="total padding text-right" ng-if="cartItems.length!=0">
+            <span>{{total_text}} <strong><span ng-bind-html="currency"></span>{{cartTotal}}</strong></span>
+        </div>
+
+        <!--<div class="row" ng-if="cartLength > 0">-->
+            <!--<div class="col-50 col">-->
+                <!--<button class="button button-block button-stable icon-right ion-card checkout-btn" >-->
+                    <!--{{checkout_btn}}-->
+                <!--</button>-->
+            <!--</div>-->
+            <!--<div class="col-50 col">-->
+                <!--<button class="button button-block button-stable empty-btn" ng-click="emptyCart()">-->
+                    <!--{{empty_btn}}-->
+                <!--</button>-->
+            <!--</div>-->
+        <!--</div>-->
+    </ion-content>
+    <ion-footer-bar class="bar-assertive" ng-click="checkout()" ng-if="cartLength > 0">
+        <h1 class="title">Checkout</h1>
+    </ion-footer-bar>
+</ion-modal-view>

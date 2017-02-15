@@ -1,0 +1,20 @@
+<ion-modal-view class="gallery-modal">
+ <ion-header-bar class="bar-dark">
+    <h4 class="title"></h4>
+     <div class="buttons">
+         <button class="button button-clear button-close icon ion-close-round" ng-click="closeGallery()"></button>
+     </div>
+ </ion-header-bar>
+  <ion-content class="image-modal">
+      <ion-slide-box show-pager="true" active-slide="activeSlide" overflow-scroll="false" >
+        <ion-slide ng-repeat="galleryImage in galleryImages">
+                  <ion-scroll direction="xy" scrollbar-x="false" scrollbar-y="false"
+                zooming="true" min-zoom="{{zoomMin}}" style="width: 100%; height: 100%"
+                delegate-handle="scrollHandle{{$index}}" on-scroll="updateSlideStatus(activeSlide)" on-release="updateSlideStatus(activeSlide)">
+                 <!-- <img ng-src="{{galleryImage.src}}" class="fullscreen-image"/> -->
+                 <div class="gallery-image" ng-style="{'background-image':'url({{galleryImage.src}})'}"></div>
+                  </ion-scroll>
+        </ion-slide>
+    </ion-slide-box>
+  </ion-content>
+</ion-modal-view>

@@ -1,0 +1,12 @@
+Intro:
+With simplicity at its core, an application that can suffice the needs of business in the modern era. Beautiful backend packed with features to manage with ease. Customise the app with countless combinations and suite it as per your need.
+
+Intro Image: http://businessapp.wohlig.com/intro.jpg
+
+Documentation Link: http://businessapp.wohlig.com/
+
+Backend demo: http://businessapp.wohlig.com/admin/
+
+BusinessApp.zip contains the app files.
+
+BusinessAppBackend.zip contains the backend files.

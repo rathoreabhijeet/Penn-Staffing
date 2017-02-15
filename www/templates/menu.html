@@ -1,0 +1,165 @@
+<ion-side-menus enable-menu-with-back-views="false">
+
+    <ion-nav-bar class="bar bar-positive" align-title="center">
+        <ion-nav-back-button>
+        </ion-nav-back-button>
+        <!--<ion-nav-buttons side="left">-->
+        <!--<button class="button button-icon button-clear ion-navicon" menu-and-drawer-toggle>-->
+        <!--</button>-->
+        <!--</ion-nav-buttons>-->
+        <!--<ion-nav-buttons side="right">-->
+        <!--<button class="button button-icon button-clear ion-ios-search" ui-sref="app.search">-->
+        <!--</button>-->
+        <!--</ion-nav-buttons>-->
+    </ion-nav-bar>
+    <ion-pane drawer-menu-content>
+        <ion-nav-view name="menuContent"></ion-nav-view>
+    </ion-pane>
+    <!--<ion-nav-view name="menuContent"></ion-nav-view>-->
+    <!--<div ng-style="fullDim" ng-click="closeDrawer('')" class="transparent-bg floatingFullDiv z-10"-->
+    <!--ng-if="showMenu"></div>-->
+
+
+    <drawer side="left" can-drag="false">
+        <!--<div class="top-statusbar"></div>-->
+        <!--<div class="list no-margin" ng-if="menu.setting">-->
+            <!--<ion-item class="item-avatar item-icon-right">-->
+                <!--<div class="image-adjust" ng-style="userdetails.myimage"></div>-->
+                <!--<h3>{{userdetails.name}}</h3>-->
+                <!--<p>{{userdetails.email}}</p>-->
+                <!--<i class="icon ln-gear2 small" ui-sref="app.setting" menu-close ng-if="menu.setting"></i>-->
+            <!--</ion-item>-->
+        <!--</div>-->
+        <ion-content class="no-header ">
+            <div class=" ecomm-transition" ng-class="{'ecomm-translate':ecommMenu}">
+                <div class="list menu-set">
+                    <!--<ion-item nav-clear menu-and-drawer-close settings-modal class="item item-icon-left item-complex item-simple"-->
+                              <!--ng-click="closeDrawer()">-->
+                        <!--<i class="icon ln-arrow-right2"></i>Settings-->
+                    <!--</ion-item>-->
+                    <ion-item nav-clear menu-and-drawer-close ecomm-modal class="item item-icon-left item-complex item-simple"
+                              ng-click="closeDrawer()">
+                       <i class="icon ln-arrow-right2"></i>E-commerce
+                    </ion-item>
+                    <ion-item ng-if="RSSarray.length!=0" nav-clear menu-and-drawer-close
+                              class="item item-icon-left" ng-click="closeDrawer()"
+                              ui-sref="app.RSS"
+                              ui-sref-active="bordered">
+                        <i class="icon ion-clipboard"></i>Breaking News
+                    </ion-item>
+                    <ion-item nav-clear menu-and-drawer-close class="item item-icon-left"
+                              ng-click="closeDrawer()" ui-sref="walkthrough"
+                              ui-sref-active="bordered">
+                        <i class="icon ln-arrow-right2"></i>App Tour
+                    </ion-item>
+                    <ion-item nav-clear menu-and-drawer-close class="item item-icon-left" ng-click="closeDrawer()"
+                              ui-sref="app.{{menu.link}}({id:menu.typeid,name:menu.name})"
+                              ui-sref-active="bordered" ng-repeat="menu in menudata">
+                        <i class="icon {{menu.icon}}"></i>{{menu.name}}
+                    </ion-item>
+                    <!--<ion-item nav-clear menu-and-drawer-close class="item item-icon-left item-complex"-->
+                              <!--ng-click="logout()"-->
+                              <!--ui-sref-active="bordered" ng-if="menu.setting">-->
+                        <!--<div class="item-content"><i class="icon ln-arrow-right2"></i>Logout</div>-->
+                    <!--</ion-item>-->
+                </div>
+            </div>
+            <div class="animated fast ecomm-menu ecomm-transition" ng-class="{'ecomm-translate':ecommMenu}">
+                <div class="row row-center light border-bottom-light">
+                    <div class="col col-10">
+                        <button class="button button-icon icon ion-ios-arrow-left button-dark"
+                        ng-click="hideEcommMenu()"></button>
+                    </div>
+                    <div class="col text-center text-large">
+                        E-commerce
+                    </div>
+                    <div class="col col-10">
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col ecomm-menu-col" nav-clear menu-and-drawer-close ui-sref="app.ecommhome" ng-click="closeDrawer()">
+                        <div class="row">
+                            <div class="col text-center light">
+                                <i class="icon ion-home ecomm-menu-icons"></i>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col text-center light">
+                                Home
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col ecomm-menu-col">
+                        <div class="row">
+                            <div class="col text-center light">
+                                <i class="icon ion-grid ecomm-menu-icons"></i>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col text-center light">
+                                Categories
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col ecomm-menu-col">
+                        <div class="row">
+                            <div class="col text-center light">
+                                <i class="icon ion-cube ecomm-menu-icons"></i>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col text-center light">
+                                Products
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col ecomm-menu-col">
+                        <div class="row">
+                            <div class="col text-center light">
+                                <i class="icon ion-beer ecomm-menu-icons"></i>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col text-center light">
+                                Offers
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col ecomm-menu-col">
+                        <div class="row">
+                            <div class="col text-center light">
+                                <i class="icon ion-bag ecomm-menu-icons"></i>
+                                <span class="badge badge-assertive absolute" ng-if="cartItems.length>0">{{cartItems.length}}</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col text-center light">
+                                Orders
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col ecomm-menu-col">
+                        <div class="row">
+                            <div class="col text-center light">
+                                <i class="icon ion-android-cart ecomm-menu-icons"></i>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col text-center light">
+                                Cart
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ion-content>
+        <div class="hidden-div z-10 animate-maxwidth zero-maxwidth"
+             ng-class="{'full-maxwidth':showMenu}">
+            <!--<div class="blur-div"></div>-->
+        </div>
+    </drawer>
+
+</ion-side-menus>

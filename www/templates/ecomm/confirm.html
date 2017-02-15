@@ -1,0 +1,80 @@
+<ion-view hide-nav-bar="true">
+    <ion-header-bar class="bar-light" align-title="center">
+        <div class="buttons">
+            <button class="button button-icon icon ion-ios-arrow-left" ng-click="confirm.goBack()"></button>
+        </div>
+        <h1 class="title">Confirm Order</h1>
+    </ion-header-bar>
+    <ion-content>
+        <div class="item item-divider">
+            SHIPPPING ADDRESS
+        </div>
+        <ul class="list">
+            <li class="item row-no-padding">
+                <div class="row">
+                    <div class="col col-40 text-left">
+                        SUBTOTAL
+                    </div>
+                    <div class="col col-60 text-right">
+                        $40
+                    </div>
+                </div>
+            </li>
+            <li class="item row-no-padding">
+                <div class="row">
+                    <div class="col col-40 text-left">
+                        Payment Method
+                    </div>
+                    <div class="col col-60 text-right">
+                        Cash On Delivery
+                    </div>
+                </div>
+            </li>
+            <li class="item row-no-padding">
+                <div class="row">
+                    <div class="col col-40 text-left">
+                        Shipping Method
+                    </div>
+                    <div class="col col-60 text-right">
+                        Local Pickup
+                    </div>
+                </div>
+            </li>
+            <li class="item row-no-padding">
+                <div class="row">
+                    <div class="col col-40 text-left">
+                        SUBTOTAL
+                    </div>
+                    <div class="col col-60 text-right">
+                        $40
+                    </div>
+                </div>
+            </li>
+            <li class="item row-no-padding">
+                <div class="row">
+                    <div class="col col-40 text-left">
+                        Shipping Cost
+                    </div>
+                    <div class="col col-60 text-right">
+                        $5
+                    </div>
+                </div>
+            </li>
+            <li class="item font-18 row-no-padding">
+                <div class="row">
+                    <div class="col col-40 text-left">
+                        <strong>Total</strong>
+                    </div>
+                    <div class="col col-60 text-right">
+                        <strong>$45</strong>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </ion-content>
+    <ion-footer-bar class="padding-0">
+        <button class="button button-full icon-center ion-locked button-assertive margin-0 padding-0" ng-click="confirm.createOreder()">
+            Pay $45
+        </button>
+    </ion-footer-bar>
+</ion-view>
