@@ -904,3 +904,92 @@ drawer .item-complex .item-content {
     border: none!important;
     opacity: 0!important;
 }
+.article-image{
+    background-size: contain !important;
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 100%;
+}
+.article-image-container{
+    min-height: 100px!important;
+    width: 100%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+    /*background-color: #ddd;*/
+}
+.min-h-250{
+    min-height:250px;
+}
+.item-image.image-text-bg h1{
+    background: linear-gradient(transparent,rgba(0,0,0,0.7));
+}
+.video-modal-button-rotate{
+    z-index: 1;
+    transform: rotate(90deg);
+    background-color: rgba(0,0,0,0.2);
+    color: white;
+}
+.item-image:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-image: -webkit-linear-gradient(top, transparent 50%, #000 100%);
+    background-image: -o-linear-gradient(top, transparent 50%, #000 100%);
+    background-image: linear-gradient(to bottom, transparent 50%, #000 100%);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#FF000000', GradientType=0);
+    opacity: 0.7;
+    z-index: 1;
+}
+.valign-parent{
+    display: table;
+    width: 100%;
+}
+.valign-child{
+    display: table-cell;
+    vertical-align: middle;
+}
+.lightgray-bg{
+    background-color: lightgray!important;
+}
+.col-mod{
+    display: inline-block;!important;
+    margin: 3px;
+}
+.row-mod{
+    max-width: 100%;
+    white-space: normal;
+    text-align: center;
+    margin: 3px 0;
+}
+.cover{
+    background-size: cover!important;
+    background-position: center!important;
+}
+.fade-in-zoom {
+    -webkit-transform: scale(0);
+    transform: scale(0); }
+
+.fade-in-zoom.ng-enter,
+.fade-in-zoom > .ng-enter {
+    -webkit-transition: all cubic-bezier(0.1, 0.7, 0.1, 1) 400ms;
+    transition: all cubic-bezier(0.1, 0.7, 0.1, 1) 400ms; }
+
+.fade-in-zoom.ng-enter-active,
+.fade-in-zoom > .ng-enter-active {
+    -webkit-transform: scale(1);
+    transform: scale(1); }
+
+.fade-in-zoom.ng-leave,
+.fade-in-zoom > .ng-leave {
+    -webkit-transition: all ease-in-out 250ms;
+    transition: all ease-in-out 250ms; }
+
+.bar-translucent {
+    background-color: rgba(0, 0, 0, 0.7) !important;
+    color: white;
+}

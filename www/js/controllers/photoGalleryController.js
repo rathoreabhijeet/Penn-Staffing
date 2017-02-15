@@ -3,7 +3,7 @@ var configreload = {};
 angular.module('starter')
     .controller('PhotoGalleryCtrl', function ($scope, MyServices, $stateParams, $ionicLoading, $timeout) {
         addanalytics("Photo gallery Details");
-        configreload.onallpage();
+        ;
         $ionicLoading.show();
         $scope.msg = "Loading....";
         $scope.keepscrolling = true;

@@ -7,7 +7,7 @@ angular.module('starter')
         addanalytics("Home page");
         var devHeight = $window.innerHeight;
         $scope.sliderheight = {'height': 0.6 * devHeight + 'px'};
-        configreload.onallpage();
+        ;
         $ionicLoading.show({
             template: '<ion-spinner class="spinner-positive"></ion-spinner>'
         });

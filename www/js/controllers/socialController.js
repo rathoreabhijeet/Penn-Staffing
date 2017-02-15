@@ -3,7 +3,7 @@ var configreload = {};
 angular.module('starter')
     .controller('SocialCtrl', function ($scope, MyServices, $window) {
         addanalytics("Social page");
-        // configreload.onallpage();
+        // ;
         $scope.tab = 'fb';
         $scope.social = {};
         $scope.showsocial = {};

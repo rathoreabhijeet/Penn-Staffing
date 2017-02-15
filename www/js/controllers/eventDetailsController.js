@@ -2,7 +2,7 @@ var reloadpage = false;
 var configreload = {};
 angular.module('starter')
     .controller('EventDetailCtrl', function ($scope, $stateParams, MyServices, $location, $ionicLoading, $ionicSlideBoxDelegate, $ionicModal) {
-        configreload.onallpage();
+        ;
         // $scope.showloading = function () {
         //     $ionicLoading.show({
         //         template: '<ion-spinner class="spinner-positive"></ion-spinner>'

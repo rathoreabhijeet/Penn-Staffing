@@ -3,7 +3,7 @@ var configreload = {};
 angular.module('starter')
     .controller('ProfileCtrl', function ($scope, MyServices, $location, $ionicLoading, $ionicPopup, $timeout, $cordovaFileTransfer, $cordovaImagePicker, $filter) {
 
-        configreload.onallpage();
+        ;
         $scope.edit = false;
         $scope.user = {};
         $scope.user.newimage = "";

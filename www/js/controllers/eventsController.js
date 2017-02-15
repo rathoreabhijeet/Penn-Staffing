@@ -3,7 +3,7 @@ var configreload = {};
 angular.module('starter')
     .controller('EventsCtrl', function ($scope, MyServices, $location, $ionicLoading, $filter, EventsInfo) {
         addanalytics("Event page");
-        configreload.onallpage();
+        ;
         $ionicLoading.show();
         $scope.pageno = 1;
         $scope.events = [];

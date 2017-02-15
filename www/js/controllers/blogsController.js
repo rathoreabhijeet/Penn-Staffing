@@ -2,7 +2,7 @@ var reloadpage = false;
 var configreload = {};
 angular.module('starter')
     .controller('BlogsCtrl', function ($scope, MyServices, $location, $ionicLoading, Blogs, $state, $rootScope) {
-        configreload.onallpage();
+        ;
         $scope.blogs = Blogs.blogs;
         console.dir($state.current)
 

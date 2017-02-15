@@ -3,7 +3,7 @@ var configreload = {};
 angular.module('starter')
     .controller('VideoGalleryCtrl', function ($scope, MyServices, $location, $ionicModal, $stateParams, $ionicLoading, $ionicPopup, $timeout, $ionicPlatform) {
         addanalytics("Video gallery detail page");
-        configreload.onallpage();
+        ;
         $ionicLoading.show();
         $scope.pageno = 1;
         $scope.videos = [];

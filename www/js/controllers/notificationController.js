@@ -3,7 +3,7 @@ var configreload = {};
 angular.module('starter')
     .controller('NotificationCtrl', function ($scope, MyServices, $ionicLoading, $filter, $location, NotificationsInfo) {
         addanalytics("Notification page");
-        configreload.onallpage();
+        ;
         $scope.notification = {};
         $scope.notify = [];
         $scope.pageno = 1;

@@ -3,7 +3,7 @@ var configreload = {};
 angular.module('starter')
     .controller('PhotoGalleryCategoryCtrl', function ($scope, MyServices, $location, $ionicLoading) {
         addanalytics("Photo gallery");
-        configreload.onallpage();
+        ;
         $ionicLoading.show();
         $scope.msg = "Loading....";
         $scope.pageno = 1;

@@ -3,7 +3,6 @@ var configreload = {};
 angular.module('starter')
     .controller('AccountCtrl', function ($scope, MyServices, $location, $ionicLoading, $ionicPopup, $timeout) {
         addanalytics("Account page");
-        configreload.onallpage();
         if ($.jStorage.get("user")) {
             $scope.userdetails = {};
             $scope.userdetails.username = $.jStorage.get("user").username;

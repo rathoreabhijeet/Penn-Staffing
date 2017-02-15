@@ -6,7 +6,7 @@ angular.module('starter')
         // loader
         $scope.search = {};
         $scope.search.text = "";
-        configreload.onallpage();
+        ;
 
         $scope.showloading = function () {
             $ionicLoading.show({

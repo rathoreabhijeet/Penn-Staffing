@@ -131,45 +131,49 @@ angular.module('starter')
                     }
 
                 });
-                console.log('menudata');
-                console.log($scope.menudata);
-                console.log('rssarray');
-                console.log($rootScope.RSSarray);
-                _.each($scope.menudata, function (n) {
-                    if (n.link == 'article') {
-                        ArticlesInfo.data.push(n);
-                    }
-                })
-                // console.log(ArticlesInfo.data);
-                $scope.contact = data.config[5];
-                $scope.menu = {};
-                $scope.menu.setting = false;
-                var blogdata1 = JSON.parse(data.config[0].text);
-
-                // config data
-                var blogdata = JSON.parse(data.config[1].text);
-                for (var i = 0; i < blogdata.length; i++) {
-                    if (blogdata[i].value == true) {
-                        $scope.menudata.blogs = true;
-                        $.jStorage.set("blogType", blogdata[i]);
-                        break;
-                    } else {
-                        $scope.menudata.blogs = false;
-                    }
-                }
-                _.each(blogdata1, function (n) {
-                    if (n.value == true) {
-                        loginstatus = true;
-                    }
-                });
-
-                $scope.logso = "";
-                if (loginstatus == false) {
+                $timeout(function(){
+                    console.log('menudata');
+                    console.log($scope.menudata);
+                    console.log('rssarray');
+                    console.log($rootScope.RSSarray);
+                    _.each($scope.menudata, function (n) {
+                        if (n.link == 'article') {
+                            ArticlesInfo.data.push(n);
+                        }
+                    })
+                    console.log(ArticlesInfo.data);
+                    $scope.contact = data.config[5];
+                    $scope.menu = {};
                     $scope.menu.setting = false;
-                } else {
-                    $scope.menu.setting = true;
-                    $scope.logso = "has-menu-photo";
-                }
+                    var blogdata1 = JSON.parse(data.config[0].text);
+
+                    // config data
+                    var blogdata = JSON.parse(data.config[1].text);
+                    for (var i = 0; i < blogdata.length; i++) {
+                        if (blogdata[i].value == true) {
+                            $scope.menudata.blogs = true;
+                            $.jStorage.set("blogType", blogdata[i]);
+                            break;
+                        } else {
+                            $scope.menudata.blogs = false;
+                        }
+                    }
+                    _.each(blogdata1, function (n) {
+                        if (n.value == true) {
+                            loginstatus = true;
+                        }
+                    });
+
+                    $scope.logso = "";
+                    if (loginstatus == false) {
+                        $scope.menu.setting = false;
+                    } else {
+                        $scope.menu.setting = true;
+                        $scope.logso = "has-menu-photo";
+                    }
+                },500);
+
+
             });
 
         };
