@@ -4,31 +4,32 @@
     </div>
     <ion-content class="padding-bottom">
         <div class="article-view">
-            <div class="min-height max-height" ng-if="eventdetail.image">
-                <img class="full-image" ng-src="{{eventdetail.image | serverimage}}">
+            <div class="min-height max-height lightgray-bg" ng-if="eventdetail.detail.image">
+                <img alt="" cache-src="{{eventdetail.detail.image | serverimage}}" class="full-image block"
+                circle-container-style="display:none">
             </div>
             <div class="padding-horizontal">
-                <h4 class="dark">{{eventdetail.title}}</h4>
-                <p ng-if="eventdetail.timestamp||eventdetail.starttime">
-                    <span class="icon-space"><i class="icon ln-calendar3 positive"></i></span><span ng-if="eventdetail.timestamp">{{eventdetail.timestamp|date : 'dd MMM, yyyy'}}</span><span ng-if="eventdetail.starttime"> @ {{eventdetail.starttime|convertto12}}</span>
+                <h4 class="dark">{{eventdetail.detail.title}}</h4>
+                <p ng-if="eventdetail.detail.timestamp||eventdetail.detail.starttime">
+                    <span class="icon-space"><i class="icon ln-calendar3 positive"></i></span><span ng-if="eventdetail.detail.timestamp">{{eventdetail.detail.timestamp|date : 'dd MMM, yyyy'}}</span><span ng-if="eventdetail.detail.starttime"> @ {{eventdetail.detail.starttime|convertto12}}</span>
                 </p>
-                <p ng-if="eventdetail.venue">
-                    <span class="icon-space"><i class="icon ln-map-marker positive"></i></span><span ng-bind-html="eventdetail.venue"></span>
+                <p ng-if="eventdetail.detail.venue">
+                    <span class="icon-space"><i class="icon ln-map-marker positive"></i></span><span ng-bind-html="eventdetail.detail.venue"></span>
                 </p>
-                <p ng-bind-html="eventdetail.content"></p>
-                <h5 class="dark" ng-if="eventdetail.eventvideos && eventdetail.eventvideos != ''">Videos</h5>
+                <p ng-bind-html="eventdetail.detail.content"></p>
+                <h5 class="dark" ng-if="eventdetail.detail.eventvideos && eventdetail.detail.eventvideos != ''">Videos</h5>
                 <ion-slide-box on-slide-changed="slideHasChanged($index)">
-                    <ion-slide ng-repeat="images in eventdetail.eventvideos">
+                    <ion-slide ng-repeat="images in eventdetail.detail.eventvideos">
                         <div class="row">
                             <div class="col col-50" ng-repeat="img in images" ng-click="showVideo(img.url);">
-                                <img cache-src="http://img.youtube.com/vi/{{img.url | url}}/default.jpg" alt="">
+                                <img alt="" cache-src="http://img.youtube.com/vi/{{img.url | url}}/default.jpg" >
                             </div>
                         </div>
                     </ion-slide>
                 </ion-slide-box>
-                <h5 class="dark" ng-if="eventdetail.eventimages && eventdetail.eventimages != ''">Images</h5>
+                <h5 class="dark" ng-if="eventdetail.detail.eventimages && eventdetail.detail.eventimages != ''">Images</h5>
                 <ion-slide-box on-slide-changed="slideHasChanged($index)">
-                    <ion-slide ng-repeat="images in eventdetail.eventimages">
+                    <ion-slide ng-repeat="images in eventdetail.detail.eventimages">
                         <div class="row">
                             <div class="col col-50" ng-repeat="img in images" ng-click="showImage(img.image);">
                                 <img cache-src="{{img.image|serverimage}}" imgloadingsec class="full-image" alt=""></div>
@@ -40,7 +41,7 @@
     </ion-content>
     <ion-footer-bar class="margin-0 padding-0 footer-menu">
         <ion-scroll zooming="true" direction="x" scrollbar-x="false" class="categories-filter">
-			<span class="footer-col" ng-repeat="links in footerLinks"  ng-click="footerLink(links)">
+			<span class="footer-col" ng-repeat="links in footerLinks" ng-click="footerLink(links)">
                 <div class="row row-no-padding padding-top-5" >
                     <div class="col ">
                         <i class="icon" ng-class="links.icon"></i>
@@ -49,18 +50,6 @@
                 <div class="row row-no-padding padding-top-5" >
                     <div class="col ">
                         {{links.name}}
-                    </div>
-                </div>
-            </span>
-            <span class="footer-col" ng-click="openCart()">
-                <div class="row row-no-padding padding-top-5" >
-                    <div class="col ">
-                        <i class="icon ion-android-cart"></i>
-                    </div>
-                </div>
-                <div class="row row-no-padding padding-top-5" >
-                    <div class="col ">
-                        Cart
                     </div>
                 </div>
             </span>
