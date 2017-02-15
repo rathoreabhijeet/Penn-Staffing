@@ -6,12 +6,12 @@
     <ion-nav-buttons side="right">
         <button class="button button-icon button-clear ion-loop" ng-click="refreshAllData()">
         </button>
-        <!--<button class="button button-icon button-clear ion-bag" ecomm-modal-->
-        <!--ng-if="cartItems.length==0">-->
-        <!--</button>-->
-        <!--<button class="button button-icon button-clear ion-bag padding-right-10" ecomm-modal ng-if="cartItems.length>0">-->
-        <!--<span class="badge badge-assertive absolute right-0" >{{cartItems.length}}</span>-->
-        <!--</button>-->
+        <button class="button button-icon button-clear ion-bag" ecomm-modal
+        ng-if="cartItems.length==0">
+        </button>
+        <button class="button button-icon button-clear ion-bag padding-right-10" ecomm-modal ng-if="cartItems.length>0">
+        <span class="badge badge-assertive absolute right-0" >{{cartItems.length}}</span>
+        </button>
     </ion-nav-buttons>
     <ion-nav-title>
         <h1 cache-src="{{headerLogo}}"
@@ -33,7 +33,8 @@
                                  space-between="1"
                                  pagination-is-active="true"
                                  pagination-clickable="true"
-                                 autoplay="4000">
+                                 autoplay="4000"
+                                 autoplayDisableOnInteraction="false">
                 <ks-swiper-slide class="swiper-slide" ng-repeat="slide in slides.menu track by $index">
                     <div cache-src="{{slide.image | serverimage}}"
                          src-is="background"
@@ -56,7 +57,8 @@
                                  slides-per-view="1"
                                  space-between="1"
                                  pagination-clickable="false"
-                                 autoplay="4000">
+                                 autoplay="4000"
+                                 autoplayDisableOnInteraction="false">
                 <ks-swiper-slide class="swiper-slide" ng-repeat="banner in banners">
                     <div class="text-center slider2-bg"
                          cache-src="{{banner.image| serverimage}}"

@@ -3,22 +3,28 @@ var configreload = {};
 angular.module('starter')
 
     .controller('RSSsingleCtrl', function ($scope, $stateParams, MyServices, $ionicLoading, RSS, $state, $window,
-                                           $ionicSlideBoxDelegate, $ionicHistory, $timeout) {
+                                           $ionicSlideBoxDelegate, $ionicHistory, $rootScope, $timeout, Config, $localForage,
+                                           $ionicScrollDelegate) {
 
         // $scope.loading = true;
         var devH = $window.innerHeight;
         var devW = $window.innerWidth;
         $scope.fullDim = {'height': devH + 'px', 'width': devW + 'px'};
-        $scope.buttonClicked = true;
+
         var feedObject = {};
         var feedExists = false;
         var feedIndex;
-        var prevFeedIndex = 0;
+        var prevFeedIndex=0;
         var title;
         var name;
 
         $scope.blogs = [];
 
+        //Checks for URL in page title, for RSS feed
+        function isURL(s) {
+            var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
+            return regexp.test(s);
+        }
 
         function setServiceObject() {
             // console.log('2');
@@ -34,37 +40,37 @@ angular.module('starter')
             });
             prevFeedIndex = feedIndex;
 
-            if ($scope.buttonClicked) {
+            if($scope.buttonClicked) {
                 $ionicSlideBoxDelegate.slide(feedIndex, 700);
             }
+
             // If this feed is not stored in service.feeds, store it
             if (_.isEmpty(RSS.feeds[feedIndex])) {
-                console.log('feed not stored, storing now')
+                console.log('feed not stored, storing now');
                 RSS.feeds[feedIndex] = feedObject;
             }
-            else {
+            else{
                 console.log('feed link exists');
             }
 
             //only the link is stored??
-            if (RSS.feeds[feedIndex].feed.length == 0) {
+            if(RSS.feeds[feedIndex].feed.length==0){
                 feedExists = false;
                 console.log('feed array empty');
             }
             //Ahh, this feed already exists in service
-            else {
+            else{
                 feedExists = true;
                 console.log('Feed array filled');
-                $scope.loading = false;
             }
             console.log('feedindex', feedIndex);
 
             //Now bind the blogs variable to appropriate service index variable
             // console.log('RSS', RSS);
             $scope.blogs[feedIndex] = RSS.feeds[feedIndex].feed;
-            $timeout(function () {
+            $timeout(function(){
                 fetchBlogs();
-            }, 600)
+            },600)
         }
 
         function fetchBlogs() {
@@ -85,23 +91,19 @@ angular.module('starter')
                             $scope.msg = "";
                             _.each(blogsData.items, function (n) {
                                 var fullTitle = n.title;
-                                var title = '';
-                                var subTitle = '';
-                                if (fullTitle.indexOf('-') != -1) {
-                                    n.title = fullTitle.substring(0, fullTitle.indexOf('-') - 1);
-                                    n.subTitle = fullTitle.substring(fullTitle.indexOf('-') + 1);
+                                if(fullTitle.indexOf('-') != -1){
+                                    n.title = fullTitle.substring(0,fullTitle.indexOf('-')-1);
+                                    n.subTitle = fullTitle.substring(fullTitle.indexOf('-')+1);
                                 }
-
                                 $scope.blogs[feedIndex].push(n);
                             })
                             // $scope.blogs = blogsData.items;
-                            // console.log($scope.blogs);
+                            console.log($scope.blogs);
                             _.each($scope.blogs[feedIndex], function (n) {
-                                console.log(n.pubDate);
                                 n.pubDate = new Date(n.pubDate.replace(/\s/, 'T'))
-                                console.log(n.pubDate)
                             })
                             $scope.$broadcast('AllDataLoaded');
+                            console.log($scope.blogs);
                         } else {
                             $scope.msg = "No blog data or Invalid blog";
                             console.log("No blog data or Invalid blog");
@@ -118,13 +120,13 @@ angular.module('starter')
 
                 // $ionicSlideBoxDelegate.enableSlide(false);
             }
-            $ionicSlideBoxDelegate.enableSlide(false);
             $scope.buttonClicked = false;
+
         }
 
         function init(title, name) {
             $scope.loading = true;
-            if (title && name) {
+            if(title && name){
                 $scope.rssLink = title;
                 $scope.name = name;
             }
@@ -134,6 +136,8 @@ angular.module('starter')
             }
             setServiceObject();
         }
+
+
 
         $scope.$on('AllDataLoaded', function () {
             _.each($scope.blogs[feedIndex], function (n) {
@@ -163,7 +167,7 @@ angular.module('starter')
         })
 
         $scope.goToRssArticle = function (index) {
-            $state.go('app.RSSarticle', {index: index, parent: feedIndex});
+            $state.go('app.RSSarticle', {index: index,parent:feedIndex});
         }
 
         var getBlogImage = function (htmlString) {
@@ -179,8 +183,8 @@ angular.module('starter')
         }
 
         $scope.goToNextRSS = function () {
-            if (feedIndex < RSS.data.length - 1) {
-                $ionicSlideBoxDelegate.enableSlide(true);
+            if (feedIndex < RSS.data.length-1) {
+                // $ionicSlideBoxDelegate.enableSlide(true);
                 feedIndex = feedIndex + 1;
                 title = RSS.data[feedIndex].title;
                 name = RSS.data[feedIndex].name;
@@ -196,7 +200,7 @@ angular.module('starter')
 
         $scope.goToPreviousRSS = function () {
             if (feedIndex > 0) {
-                $ionicSlideBoxDelegate.enableSlide(true);
+                // $ionicSlideBoxDelegate.enableSlide(true);
                 feedIndex = feedIndex - 1;
                 title = RSS.data[feedIndex].title;
                 name = RSS.data[feedIndex].name;
@@ -211,37 +215,141 @@ angular.module('starter')
         };
 
         $scope.lockSlide = function () {
+            console.log('lockslide');
             // Initialize slide-box with number of slides
-            console.log(RSS.data);
             _.each(RSS.data, function () {
                 $scope.blogs.push([]);
-                $scope.showSlider = true;
                 // $ionicSlideBoxDelegate.enableSlide(true);
             });
-            console.log($scope.blogs);
-            $timeout(function () {
-                $ionicSlideBoxDelegate.update();
+            $ionicSlideBoxDelegate.update();
+            $timeout(function(){
                 console.log($ionicSlideBoxDelegate.slidesCount());
                 init();
-            }, 500)
+            },100)
             // $ionicSlideBoxDelegate.enableSlide(false);
         };
 
-        // $scope.nextOrPrev = function () {
-        //     console.log($ionicSlideBoxDelegate.currentIndex());
-        //     if (!$scope.buttonClicked) {
-        //         console.log('next or prev');
-        //         if (prevFeedIndex < $ionicSlideBoxDelegate.currentIndex()) {
-        //             console.log('next');
-        //             $scope.goToNextRSS();
-        //         }
-        //         else {
-        //             console.log('prev');
-        //             $scope.goToPreviousRSS();
-        //         }
-        //     }
-        // }
+        $scope.nextOrPrev = function(){
+            $ionicScrollDelegate.$getByHandle('main').scrollTop();
+            if(!$scope.buttonClicked) {
+                console.log('next or prev');
+                if (prevFeedIndex < $ionicSlideBoxDelegate.currentIndex()) {
+                    $scope.goToNextRSS();
+                }
+                else {
+                    $scope.goToPreviousRSS();
+                }
+            }
+        }
 
+        $scope.footerLink = function(links){
+            switch (links.linktype) {
+                case '3':
+                    links.typeid = links.event;
+                    break;
+                case '6':
+                    links.typeid = links.gallery;
+                    break;
+                case '8':
+                    links.typeid = links.video;
+                    break;
+                case '10':
+                    links.typeid = links.blog;
+                    break;
+                case '2':
+                    links.typeid = links.article;
+                    break;
+                default:
+                    links.typeid = 0;
+
+            }
+            if(links.name=="Phone Call"){
+                window.open('tel:' + ('+1' + $rootScope.phoneNumber), '_system');
+            }
+            else if (links.name == "Home") {
+                $state.go("app." + $rootScope.homeLink);
+
+            }
+            else {
+                $state.go("app." + links.linktypelink, {id: links.typeid, name: links.name});
+            }
+        }
+
+        function checkRefresh(){
+            var index = _.findIndex($rootScope.RSSarray,function(n){
+                return n.articlename ==$stateParams.title;
+            })
+
+            if(index == -1){
+                $ionicHistory.backView().stateParams = {trigger:false};
+                $ionicHistory.goBack();
+            }
+            else{
+                RSS.feeds[feedIndex].feed.length=0;
+                init(RSS.data[feedIndex].title,RSS.data[feedIndex].name);
+            }
+        }
+
+        function sortRssLinks(data) {
+            $scope.menudata = [];
+
+            // console.log(data);
+            _.each(data.menu, function (n, index) {
+                if (n.linktypelink != "setting" && n.linktypelink != "contact" && n.linktypelink != "profile") {
+                    var newmenu = {};
+                    newmenu.id = n.id;
+                    newmenu.name = n.name;
+
+                    newmenu.order = n.order;
+                    newmenu.icon = n.icon;
+                    newmenu.link_type = n.linktypename;
+                    newmenu.articlename = n.articlename;
+                    switch (n.linktype) {
+                        case '3':
+                            newmenu.typeid = n.event;
+                            break;
+                        case '6':
+                            newmenu.typeid = n.gallery;
+                            break;
+                        case '8':
+                            newmenu.typeid = n.video;
+                            break;
+                        case '10':
+                            newmenu.typeid = n.blog;
+                            break;
+                        case '2':
+                            newmenu.typeid = n.article;
+                            break;
+                        default:
+                            newmenu.typeid = 0;
+                    }
+                    newmenu.link = n.linktypelink;
+                    // $rootScope.homeName = 'Home';
+
+                    //If there is URL in page name, it means it contains RSS feed links
+                    if (n.linktypename == "Pages" && isURL(n.articlename)) {
+                        $rootScope.RSSarray.push(newmenu);
+                    }
+                    console.log($rootScope.RSSarray);
+                }
+            });
+
+            checkRefresh();
+        }
+
+        $scope.fetchConfigData = function() {
+            $rootScope.RSSarray = [];
+            MyServices.getallfrontmenu(function (data) {
+                MyServices.setconfigdata(data);
+                Config.data = data;
+                console.log(data);
+                $localForage.setItem('config', data);
+
+                sortRssLinks(data);
+            }, function (err) {
+                $state.go('access.offline');
+            })
+        }
 
 
     })

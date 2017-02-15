@@ -1,16 +1,13 @@
 <ion-view view-title="">
     <ion-nav-buttons side="right">
-        <button class="button button-icon button-clear ion-bag" ecomm-modal ng-if="cartItems.length==0">
-        </button>
-        <button class="button button-icon button-clear ion-bag padding-right-10" ecomm-modal ng-if="cartItems.length>0">
-            <span class="badge badge-assertive absolute right-0" >{{cartItems.length}}</span>
+        <button class="button button-icon button-clear ion-loop">
         </button>
     </ion-nav-buttons>
-    <ion-nav-title >
-        <h1 class="title company-logo article-header-logo">
-            <img src="{{headerLogo}}" class="header-logo-image">
-        </h1>
-    </ion-nav-title>
+    <ion-nav-title>
+        <h1 cache-src="{{headerLogo}}"
+            src-is="background"
+            background-loading-style=" no-repeat center"
+            class="title company-logo article-header-logo"></h1>    </ion-nav-title>
     <!--<ion-header-bar class="bar-positive">-->
     <!--<div class="buttons">-->
     <!--<button class="button button-icon icon ion-ios-arrow-left" ng-click="backToParentRSS()"></button>-->
@@ -25,9 +22,9 @@
             <button class="button button-icon icon ion-arrow-right-b" ng-click="goToNextArticle()"></button>
         </div>
     </ion-header-bar>
-    <ion-content>
+    <ion-content delegate-handle="article">
         <ion-item class="padding-0">
-            <div class="item-image"
+            <div class="item-image min-h-250 "
                  ng-style="{'background-image': 'url(' + article.imageLink + ')'}">
                 <!--<img cache-src="{{article.image}}">-->
                 <div class="titles">
@@ -54,8 +51,7 @@
     </ion-content>
     <ion-footer-bar class="margin-0 padding-0 footer-menu">
         <ion-scroll zooming="true" direction="x" scrollbar-x="false" class="categories-filter">
-			<span class="footer-col" ng-repeat="links in footerLinks"
-                  ng-click="footerLink(links)">
+			<span class="footer-col" ng-repeat="links in footerLinks" ng-click="footerLink(links)">
                 <div class="row row-no-padding padding-top-5">
                     <div class="col ">
                         <i class="icon" ng-class="links.icon"></i>
@@ -64,18 +60,6 @@
                 <div class="row row-no-padding padding-top-5">
                     <div class="col ">
                         {{links.name}}
-                    </div>
-                </div>
-            </span>
-            <span class="footer-col" ng-click="openCart()">
-                <div class="row row-no-padding padding-top-5">
-                    <div class="col ">
-                        <i class="icon ion-android-cart"></i>
-                    </div>
-                </div>
-                <div class="row row-no-padding padding-top-5">
-                    <div class="col ">
-                        Cart
                     </div>
                 </div>
             </span>

@@ -4,29 +4,26 @@
         </button>
     </ion-nav-buttons>
     <ion-nav-buttons side="right">
-        <button class="button button-icon button-clear ion-bag" ecomm-modal ng-if="cartItems.length==0">
-        </button>
-        <button class="button button-icon button-clear ion-bag padding-right-10" ecomm-modal ng-if="cartItems.length>0">
-            <span class="badge badge-assertive absolute right-0" >{{cartItems.length}}</span>
+        <button class="button button-icon button-clear ion-loop" ng-click="refreshAllRSS()">
         </button>
     </ion-nav-buttons>
-    <ion-nav-title >
-        <h1 class="title company-logo article-header-logo">
-            <img src="{{headerLogo}}" class="header-logo-image">
-        </h1>
-    </ion-nav-title>
-    <ion-header-bar class="bar-subheader bar-simpl-subheader padding-0" ng-hide="categories.length==2 && categories[1].trim()==''">
+    <ion-nav-title>
+        <h1 cache-src="{{headerLogo}}"
+            src-is="background"
+            background-loading-style=" no-repeat center"
+            class="title company-logo article-header-logo"></h1>    </ion-nav-title>
+    <ion-header-bar class="bar-subheader bar-simpl-subheader padding-0" ng-if="showCategoryBar">
         <ion-scroll direction="x" zooming="false" class="full-width">
             <div class="bar-hrz-slider">
                 <div class="bar-hrz-slider-item" ng-repeat="category in categories" ng-if="category!=''"
                      ng-class="{'selected':selectedCategory==category}"
-                     ng-click="changeCategory(category)">
+                ng-click="changeCategory(category)">
                     {{category | capitalize}}
                 </div>
             </div>
         </ion-scroll>
     </ion-header-bar>
-    <ion-content class="has-header has-subheader has-custom-footer">
+    <ion-content class="has-header" overflow-scroll="true" ng-class="{'has-subheader':showCategoryBar}">
         <ion-list>
             <div class="row row-wrap row-no-padding category-items">
                 <ion-item class="col col-50 margin-0 no-border">
@@ -54,7 +51,7 @@
     </ion-content>
     <ion-footer-bar class="margin-0 padding-0 footer-menu">
         <ion-scroll zooming="true" direction="x" scrollbar-x="false" class="categories-filter">
-			<span class="footer-col" ng-repeat="links in footerLinks"  ng-click="footerLink(links)">
+			<span class="footer-col" ng-repeat="links in footerLinks" ng-click="footerLink(links)">
                 <div class="row row-no-padding padding-top-5" >
                     <div class="col ">
                         <i class="icon" ng-class="links.icon"></i>
@@ -63,18 +60,6 @@
                 <div class="row row-no-padding padding-top-5" >
                     <div class="col ">
                         {{links.name}}
-                    </div>
-                </div>
-            </span>
-            <span class="footer-col" ng-click="openCart()">
-                <div class="row row-no-padding padding-top-5" >
-                    <div class="col ">
-                        <i class="icon ion-android-cart"></i>
-                    </div>
-                </div>
-                <div class="row row-no-padding padding-top-5" >
-                    <div class="col ">
-                        Cart
                     </div>
                 </div>
             </span>

@@ -89,7 +89,7 @@ angular.module('starter', ['ionic.contrib.drawer', 'ionic', 'ngCordova', 'ionic-
         $rootScope.clickedMenuItem = '';
         $rootScope.ecommMenu=false;
         $rootScope.ecommMenuStyle =1;
-        $rootScope.adminurl = "http://business.appturemarket.com/index.php/json/";
+        $rootScope.adminurl = "http://power5.simpl.life/index.php/json/";
         $rootScope.tabs = [
             {'name':'Profile','icon':'ion-android-person','link':'somelink'},
             {'name':'Status','icon':'ion-ios-filing','link':'somelink'},

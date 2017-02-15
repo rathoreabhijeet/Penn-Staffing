@@ -1,7 +1,8 @@
 var reloadpage = false;
 var configreload = {};
 angular.module('starter')
-    .controller('RSSarticleCtrl', function ($scope, $stateParams, MyServices, $ionicLoading, RSS, $state, $ionicHistory) {
+    .controller('RSSarticleCtrl', function ($scope, $stateParams, MyServices, $ionicLoading,
+                                            RSS, $state, $ionicHistory, $rootScope, $ionicScrollDelegate) {
         // console.log(RSS);
         var article = parseInt($stateParams.index);
         var feed = parseInt($stateParams.parent);
@@ -21,10 +22,9 @@ angular.module('starter')
             // console.log(typeof articleIndex, articleIndex);
             $scope.article = RSS.feeds[feedIndex].feed[articleIndex];
 
-
             var loopRemoveDuplicateImage = true;
 
-            console.log($scope.article);
+            // console.log($scope.article);
             function removeDuplicateImage() {
                 var htmlString = $scope.article.content;
                 var string1 = htmlString.substring(htmlString.indexOf('src="'), htmlString.indexOf('"', htmlString.indexOf('src="') + 5));
@@ -48,6 +48,7 @@ angular.module('starter')
                 article = article - 1;
                 fetchArticle(feed, article);
                 $scope.currentArticle = $scope.currentArticle -1;
+                $ionicScrollDelegate.$getByHandle('article').scrollTop();
             }
             else{
                 console.log('no more slides');
@@ -59,6 +60,7 @@ angular.module('starter')
                 article = article + 1;
                 fetchArticle(feed, article);
                 $scope.currentArticle = $scope.currentArticle +1;
+                $ionicScrollDelegate.$getByHandle('article').scrollTop();
             }
             else{
                 console.log('no more slides');
@@ -71,5 +73,37 @@ angular.module('starter')
         // }
         fetchArticle(feed,article);
 
+        $scope.footerLink = function(links){
+            switch (links.linktype) {
+                case '3':
+                    links.typeid = links.event;
+                    break;
+                case '6':
+                    links.typeid = links.gallery;
+                    break;
+                case '8':
+                    links.typeid = links.video;
+                    break;
+                case '10':
+                    links.typeid = links.blog;
+                    break;
+                case '2':
+                    links.typeid = links.article;
+                    break;
+                default:
+                    links.typeid = 0;
+
+            }
+            if(links.name=="Phone Call"){
+                window.open('tel:' + ('+1' + $rootScope.phoneNumber), '_system');
+            }
+            else if (links.name == "Home") {
+                $state.go("app." + $rootScope.homeLink);
+
+            }
+            else {
+                $state.go("app." + links.linktypelink, {id: links.typeid, name: links.name});
+            }
+        }
 
     })
