@@ -1,7 +1,7 @@
 {
-  "name": "businessapp",
+  "name": "penn-staffing",
   "version": "1.0.0",
-  "description": "BusinessApp",
+  "description": "penn-staffing",
   "dependencies": {
     "end-of-stream": "^1.1.0",
     "gulp": "^3.5.6",
@@ -21,14 +21,16 @@
     "cordova-plugin-console",
     "cordova-plugin-whitelist",
     "cordova-plugin-splashscreen",
-    "com.ionic.keyboard",
-    "cordova-plugin-x-socialsharing",
+    "ionic-plugin-keyboard",
+    "cordova-plugin-x-toast",
     "cordova-plugin-network-information",
     "cordova-plugin-file-transfer",
     "cordova-plugin-statusbar",
     "cordova-plugin-inappbrowser",
-    "cordova-plugin-x-toast",
-    "cordova-plugin-android-permissions@0.10.0",
+    "cordova-plugin-android-permissions",
+    "cordova-plugin-compat",
+    "cordova-plugin-file-transfer",
+    "cordova-plugin-file",
     {
       "locator": "https://github.com/wymsee/cordova-imagePicker.git",
       "id": "com.synconset.imagepicker"
@@ -37,9 +39,9 @@
       "locator": "https://github.com/danwilson/google-analytics-plugin.git",
       "id": "cordova-plugin-google-analytics"
     },
-    "phonegap-plugin-push",
     "cordova-plugin-x-socialsharing@5.1.2",
     "cordova-plugin-dialogs"
+
   ],
   "cordovaPlatforms": [
     "ios",

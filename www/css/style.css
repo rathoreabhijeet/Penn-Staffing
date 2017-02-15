@@ -671,9 +671,9 @@ drawer .item-complex .item-content {
 
 .company-logo {
     /*background-image: url('../img/simpl.png');*/
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
+    background-size: contain!important;
+    background-repeat: no-repeat!important;
+    background-position: center!important;
 }
 
 .secondary-promo-banner {
@@ -738,7 +738,7 @@ drawer .item-complex .item-content {
     line-height: 28px;
 }
 .article-header-logo{
-    max-width: 65% !important;
+    max-width: 55% !important;
     margin: auto !important;
 }
 .has-custom-footer{

@@ -15,15 +15,10 @@
 
                 elem.bind('click', openModal);
 
-                function init() {
-
-                }
-
                 function openModal() {
-
-                    init();
                     $ionicModal.fromTemplateUrl('templates/ecomm/ecomm-modal.html', {
-                        scope: scope
+                        scope: scope,
+                        animation:'slide-in-up'
                     }).then(function (modal) {
 
                         scope.modalEcomm = modal;

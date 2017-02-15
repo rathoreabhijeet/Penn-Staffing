@@ -332,7 +332,7 @@ angular.module('starter.services', [])
         return {data: [], content: {}};
     })
     .factory("HomePage5Info", function () {
-        return {data: [], content: {}};
+        return {data: [], promos: [], content: {}};
     })
     .factory("EventsInfo", function () {
         return {data: []};
@@ -343,8 +343,14 @@ angular.module('starter.services', [])
     .factory("NotificationsInfo", function () {
         return {data: []};
     })
+    .factory("Config", function () {
+        return {data: []};
+    })
     .factory("RSS", function () {
         return {menuData: [], data: [], feeds: [], categories: []};
+    })
+    .factory("MenuData", function () {
+        return {data: []};
     })
     .factory("latestOrder", function () {
         return {data: {}};
@@ -437,6 +443,9 @@ angular.module('starter.services', [])
                     headerLogo = (_.find(results.data, function (n) {
                         return n.title == "Header Logo";
                     })).image;
+                    $rootScope.phoneNumber = (_.find(results.data, function (n) {
+                        return n.title == "Contact No";
+                    })).content;
                     console.log(headerLogo);
                     $rootScope.headerLogo = "http://power5.simpl.life/uploads/header-logo/" + headerLogo;
 
@@ -603,3 +612,5 @@ angular.module('starter.services', [])
 
         };
     })
+
+

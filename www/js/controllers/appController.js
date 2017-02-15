@@ -8,32 +8,34 @@ angular.module('starter')
                                      $cordovaNetwork, $rootScope, $q, RSS, $http, $state,
                                      $ionicPopup, $ionicPopover, $ionicSlideBoxDelegate,
                                      $ionicScrollDelegate, CategoriesService, WooCategories,
-                                     $cordovaToast, WC, Shop, $localForage, allOrders) {
-        addanalytics("flexible menu");
-        var devWidth = $window.innerWidth;
-        var devHeight = $window.innerHeight;
-        var cartItemsSavedInLocalForage = [];
-        $scope.wooCommCatThumb = 0.25 * devWidth;
-        $scope.wooCategoriesDiv = {'height': 0.6 * devHeight + 'px'};
-        $scope.wooFixed = {'height': 0.15 * devHeight + 'px'};
-        var isURL = function (s) {
-            var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
-            return regexp.test(s);
-        }
+                                     $cordovaToast, WC, Shop, $localForage, allOrders, Config, MenuData) {
+        // ------------------------------ I N I T I A L I Z E -----------------------------
+        var devH = $window.innerHeight;
+        var devW = $window.innerWidth;
+        $scope.fullDim = {'height': devH + 'px', 'width': devW + 'px'};
+        $scope.menudata = MenuData.data;
+        var loginstatus = false;
+
+
+        //Keeps the sidemenu hidden
         $scope.showMenu = false;
+
+
+        //Array for RSS feeds and binding it to factory
         if (RSS.menuData.length == 0) {
             $rootScope.RSSarray = [];
         }
         $rootScope.RSSarray = RSS.menuData;
 
-        var devH = $window.innerHeight;
-        var devW = $window.innerWidth;
+        // ------------------------------ I N N E R  F U N C T I O N S -----------------------------
 
-        $scope.fullDim = {'height': devH + 'px', 'width': devW + 'px'};
-        $scope.openTheDrawer = function () {
-            // console.log('asdasdas')
-            $scope.showMenu = true;
+        //Checks for URL in page title, for RSS feed
+        function isURL(s) {
+            var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
+            return regexp.test(s);
         }
+
+        //checks internet access
         function internetaccess(toState) {
             if (window.cordova) {
                 if ($cordovaNetwork.isOffline()) {
@@ -45,57 +47,19 @@ angular.module('starter')
             }
         }
 
-        // $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
-        //     console.log(toState);
-        //     internetaccess(toState);
-        // });
-        // window.addEventListener("offline", function (e) {
-        //     internetaccess();
-        // })
-        // window.addEventListener("online", function (e) {
-        //     internetaccess();
-        // })
-
-        $scope.menudata = [];
-        var loginstatus = false;
-
-        // loader
-        $scope.showloading = function () {
-            $ionicLoading.show({
-                template: '<ion-spinner class="spinner-positive"></ion-spinner>'
-            });
-            $timeout(function () {
-                $ionicLoading.hide();
-            }, 5000);
-        };
-        //	$scope.showloading();
-        configreload.onallpage = function () {
-            var loginstatus = false;
-            if (MyServices.getconfigdata()) {
-                _.each(MyServices.getconfigdata().config[0], function (n) {
-                    if (n.value == true) {
-                        loginstatus = true;
-                    }
-                });
-            }
-            if (loginstatus == true && !MyServices.getuser()) {
-
-                // console.log('go to login');
-                $location.url("/access/login");
-            }
-        }
         configreload.func = function () {
-            $scope.menudata = [];
-            var data = MyServices.getconfigdata();
-            _.each(data.config[0], function (n) {
-                if (n.value == true) {
-                    loginstatus = true;
+            $scope.menudata.length=0;
+            var data = Config.data;
+            console.log('config data');
+            console.log(Config.data);
+            $localForage.getItem('config').then(function (forageData) {
+                console.log(forageData);
+                if (forageData) {
+                    data = angular.copy(forageData);
                 }
-            });
-            // console.log('menu initial data');
-            console.log(data);
-            _.each(data.menu, function (n, index) {
-                if (loginstatus == false) {
+
+                // console.log(data);
+                _.each(data.menu, function (n, index) {
                     if (n.linktypelink != "setting" && n.linktypelink != "contact" && n.linktypelink != "profile") {
                         var newmenu = {};
                         newmenu.id = n.id;
@@ -123,7 +87,6 @@ angular.module('starter')
                                 break;
                             default:
                                 newmenu.typeid = 0;
-
                         }
                         newmenu.link = n.linktypelink;
                         // $rootScope.homeName = 'Home';
@@ -140,170 +103,91 @@ angular.module('starter')
                             }
                             //Change link to numbered homePage
                             newmenu.link = 'home' + number;
-                            console.log('redirection to home' + number);
+                            // console.log('redirection to home' + number);
 
                             //Custom home name
                             $rootScope.homeName = newmenu.name;
-                            console.log(newmenu.link);
                             $rootScope.homeLink = 'home' + number;
-
                         }
 
                         //If there is URL in page name, it means it contains RSS feed links
                         if (n.linktypename == "Pages" && isURL(n.articlename)) {
                             $rootScope.RSSarray.push(newmenu);
                         }
-                        else if (n.name == "Return Policy") {
-                            $scope.returnPolicy = newmenu;
-                        }
                         else {
-                            $scope.menudata.push(newmenu);
+                            $timeout(function(){
+                                $scope.menudata.push(newmenu);
+                            },50);
                         }
                         // console.log(n)
                     }
 
-                    // console.log($rootScope.RSSarray);
-                } else {
-                    // console.log('else');
-
-                    var newmenu = {};
-                    newmenu.id = n.id;
-                    newmenu.name = n.name;
-                    newmenu.order = n.order;
-                    newmenu.icon = n.icon;
-                    newmenu.link_type = n.linktypename;
-                    switch (n.linktype) {
-                        case '3':
-                            newmenu.typeid = n.event;
-                            break;
-                        case '6':
-                            newmenu.typeid = n.gallery;
-                            break;
-                        case '8':
-                            newmenu.typeid = n.video;
-                            break;
-                        case '10':
-                            newmenu.typeid = n.blog;
-                            break;
-                        case '2':
-                            newmenu.typeid = n.article;
-                            break;
-                        default:
-                            newmenu.typeid = 0;
-
+                });
+                console.log('menudata');
+                console.log($scope.menudata);
+                console.log('rssarray');
+                console.log($rootScope.RSSarray);
+                _.each($scope.menudata, function (n) {
+                    if (n.link == 'article') {
+                        ArticlesInfo.data.push(n);
                     }
-                    newmenu.link = n.linktypelink;
-                    if (n.linktypename == "Pages" && isURL(n.articlename)) {
-                        $rootScope.RSSarray.push(newmenu);
-                    }
-                    else {
-                        $scope.menudata.push(newmenu);
-                    }
-                }
-            });
-            console.log($scope.menudata);
-            console.log($rootScope.RSSarray);
-            ArticlesInfo.data = $scope.menudata;
-            $scope.contact = data.config[5];
-            $scope.menu = {};
-            $scope.menu.setting = false;
-            var blogdata1 = JSON.parse(data.config[0].text);
-
-            // config data
-            var blogdata = JSON.parse(data.config[1].text);
-            for (var i = 0; i < blogdata.length; i++) {
-                if (blogdata[i].value == true) {
-                    $scope.menudata.blogs = true;
-                    $.jStorage.set("blogType", blogdata[i]);
-                    break;
-                } else {
-                    $scope.menudata.blogs = false;
-                }
-            }
-            _.each(blogdata1, function (n) {
-                if (n.value == true) {
-                    loginstatus = true;
-                }
-            });
-
-            $scope.logso = "";
-            if (loginstatus == false) {
+                })
+                // console.log(ArticlesInfo.data);
+                $scope.contact = data.config[5];
+                $scope.menu = {};
                 $scope.menu.setting = false;
-            } else {
-                $scope.menu.setting = true;
-                $scope.logso = "has-menu-photo";
-            }
-        }
+                var blogdata1 = JSON.parse(data.config[0].text);
 
-        MyServices.getallfrontmenu(function (data) {
-            MyServices.setconfigdata(data);
-            _.each(data.config[0], function (n) {
-                if (n.value == true) {
-                    loginstatus = true;
+                // config data
+                var blogdata = JSON.parse(data.config[1].text);
+                for (var i = 0; i < blogdata.length; i++) {
+                    if (blogdata[i].value == true) {
+                        $scope.menudata.blogs = true;
+                        $.jStorage.set("blogType", blogdata[i]);
+                        break;
+                    } else {
+                        $scope.menudata.blogs = false;
+                    }
+                }
+                _.each(blogdata1, function (n) {
+                    if (n.value == true) {
+                        loginstatus = true;
+                    }
+                });
+
+                $scope.logso = "";
+                if (loginstatus == false) {
+                    $scope.menu.setting = false;
+                } else {
+                    $scope.menu.setting = true;
+                    $scope.logso = "has-menu-photo";
                 }
             });
-            configreload.func();
-        }, function (err) {
-            $location.url("/access/offline");
-        })
 
-        var logoutsuccess = function (data, success) {
-            if (data == 'true') {
-                $.jStorage.flush();
-                reloadpage = true;
-                $ionicLoading.hide();
-                $location.path("/access/login");
-            }
-        }
-        $scope.logout = function () {
-            $ionicLoading.show();
-            MyServices.logout(logoutsuccess, function (err) {
-                $location.url("/access/offline");
+        };
+
+        // ------------------------------ S C O P E  F U N C T I O N S -----------------------------
+
+
+        $scope.openTheDrawer = function () {
+            // console.log('asdasdas')
+            $scope.showMenu = true;
+        };
+
+
+        // spinner
+        $scope.showloading = function () {
+            $ionicLoading.show({
+                template: '<ion-spinner class="spinner-positive"></ion-spinner>'
             });
-        }
-
-        // Form data for the login modal
-        $scope.loginData = {};
-
-        // Create the login modal that we will use later
-        $ionicModal.fromTemplateUrl('templates/accessView/login.html', {
-            scope: $scope
-        }).then(function (modal) {
-            $scope.modal = modal;
-        });
-
-        // Triggered in the login modal to close it
-        $scope.closeLogin = function () {
-            $scope.modal.hide();
-        };
-
-        // Open the login modal
-        $scope.login = function () {
-            $scope.modal.show();
-        };
-
-        // Perform the login action when the user submits the login form
-        $scope.doLogin = function () {
-
-            // Simulate a login delay. Remove this and replace with your login
-            // code if using a login system
             $timeout(function () {
-                $scope.closeLogin();
-            }, 1000);
+                $ionicLoading.hide();
+            }, 5000);
         };
 
-        if ($.jStorage.get("user")) {
+        // ------------------------------ A P I  C A L L S -----------------------------
 
-            MyServices.getsingleuserdetail(function (data) {
-                $scope.userdetails = data;
-                $scope.userdetails.myimage = {
-                    'background-image': "url('" + $filter("profileimg")(data.image) + "')"
-                };
-            }, function (err) {
-                $location.url("/access/offline");
-            });
 
-        }
 
         ///////////////////////////// E C O M M  P A R T ///////////////////////////////
 

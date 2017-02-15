@@ -4,96 +4,95 @@
         </button>
     </ion-nav-buttons>
     <ion-nav-buttons side="right">
-        <button class="button button-icon button-clear ion-bag" ecomm-modal
-                ng-if="cartItems.length==0">
+        <button class="button button-icon button-clear ion-loop" ng-click="refreshAllData()">
         </button>
-        <button class="button button-icon button-clear ion-bag padding-right-10" ecomm-modal ng-if="cartItems.length>0">
-            <span class="badge badge-assertive absolute right-0" >{{cartItems.length}}</span>
-        </button>
+        <!--<button class="button button-icon button-clear ion-bag" ecomm-modal-->
+                <!--ng-if="cartItems.length==0">-->
+        <!--</button>-->
+        <!--<button class="button button-icon button-clear ion-bag padding-right-10" ecomm-modal ng-if="cartItems.length>0">-->
+            <!--<span class="badge badge-assertive absolute right-0" >{{cartItems.length}}</span>-->
+        <!--</button>-->
     </ion-nav-buttons>
-    <ion-nav-title >
-        <h1 class="title company-logo article-header-logo">
-            <img src="{{headerLogo}}" class="header-logo-image">
-        </h1>
+    <ion-nav-title>
+        <h1 cache-src="{{headerLogo}}"
+            src-is="background"
+            background-loading-style=" no-repeat center"
+            class="title company-logo article-header-logo"></h1>
+
     </ion-nav-title>
 
-    <ion-content class="has-header dark-bg has-custom-footer">
+    <ion-content class="has-header dark-bg">
 
         <!--the main slider, linked to inner pages-->
-        <ion-slide-box ng-style="sliderheight">
-            <ion-slide ng-repeat="slide in slides.menu track by $index" class="text-center slider-bg"
+        <ion-slide-box delegate-handle="slides" ng-style="sliderheight" class="valign-parent" ng-if="!slider1Loading">
+            <ion-slide ng-repeat="slide in slides.menu track by $index"
                        cache-src="{{slide.image | serverimage}}"
                        src-is="background"
                        background-loading-style=" no-repeat center"
-                       ui-sref="app.{{slide.linktypelink}}({id:slide.typeid,name:slide.name})">
+                       ui-sref="app.{{slide.linktypelink}}({id:slide.typeid,name:slide.name,articleName:menu.articlename})"
+                       class="text-center slider-bg lightgray-bg">
                 <!--<img alt="" cache-src="{{slide.image | serverimage}}" class="full-height img-shadow">-->
             </ion-slide>
+            <ion-spinner icon="ios" class="valign-child spinner-light spinner-center text-center"
+                         ng-if="slider1Loading"></ion-spinner>
         </ion-slide-box>
 
         <!--optional promo banner-->
-        <ion-slide-box  delegate-handle="promotion"  show-pager="false" auto-play="true" does-continue="true" ng-style="promo_banner" class="padding-separation">
+        <ion-slide-box delegate-handle="promotion" show-pager="false" auto-play="true" does-continue="true"
+                       ng-style="promo_banner" class="padding-separation valign-parent" ng-if="!slider2Loading">
             <ion-slide ng-repeat="banner in banners" class="text-center slider2-bg"
                        cache-src="{{banner.image| serverimage}}"
                        src-is="background"
                        background-loading-style=" no-repeat center" ng-style="promo_banner"
-                       ui-sref="app.{{banner.linktypelink}}({id:banner.typeid,name:banner.name})">
+                       ui-sref="app.{{banner.linktypelink}}({id:banner.typeid,name:banner.name,articleName:menu.articlename})">
             </ion-slide>
+            <ion-spinner icon="ios" class="valign-child spinner-light spinner-center text-center"
+                         ng-if="slider2Loading"></ion-spinner>
         </ion-slide-box>
 
         <!--RSS Feeds-->
-        <ion-list>
-            <div class="row row-wrap row-no-padding category-items">
-                <ion-item class="col col-50 margin-0 no-border">
-                    <div class="row row-no-padding margin-0" ng-repeat="cat in RSS" ng-if="$index%2==0">
-                        <div class="col">
-                            <div class="item-image" ng-style="RSSCat" ng-click="goToRssSingle(cat.name,cat.title)">
-                                <img class="full-image" alt="" cache-src="{{cat.image|serverimage}}">
-                                <!--<h3 class="RSS-category">{{cat.name}}</h3>-->
-                            </div>
-                        </div>
-                    </div>
-                </ion-item>
-                <ion-item class="col col-50 margin-0 no-border">
-                    <div class="row row-no-padding margin-0" ng-repeat="cat in RSS" ng-if="$index%2!=0">
-                        <div class="col">
-                            <div class="item-image" ng-style="RSSCat" ng-click="goToRssSingle(cat.name, cat.title)">
-                                <img class="full-image" alt="" cache-src="{{cat.image|serverimage}}">
-                                <!--<h3 class="RSS-category">{{cat.name}}</h3>-->
-                            </div>
-                        </div>
-                    </div>
-                </ion-item>
-            </div>
-        </ion-list>
 
+        <div class="row row-wrap row-no-padding category-items" ng-if="!RSSLoading">
+            <div class="col col-50 margin-0 no-border">
+                <div class="row row-no-padding margin-0" ng-repeat="cat in RSS" ng-if="$index%2==0">
+                    <div class="col">
+                        <div class="item-image" ng-style="RSSCat" ng-click="goToRssSingle(cat.name,cat.title)">
+                            <img class="full-image" alt="" cache-src="{{cat.image|serverimage}}">
+                            <!--<h3 class="RSS-category">{{cat.name}}</h3>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-50 margin-0 no-border">
+                <div class="row row-no-padding margin-0" ng-repeat="cat in RSS" ng-if="$index%2!=0">
+                    <div class="col">
+                        <div class="item-image" ng-style="RSSCat" ng-click="goToRssSingle(cat.name, cat.title)">
+                            <img class="full-image" alt="" cache-src="{{cat.image|serverimage}}">
+                            <!--<h3 class="RSS-category">{{cat.name}}</h3>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div ng-style="visibleRSS" class="valign-parent" ng-if="RSSLoading">
+            <ion-spinner icon="ios" class="valign-child spinner-light spinner-center text-center"></ion-spinner>
+        </div>
     </ion-content>
 
-    <div ng-style="fullDim" class="loading-bg" ng-if="loading">
-        <ion-spinner icon="ios" class="spinner-light spinner-center"></ion-spinner>
-    </div>
-    <ion-footer-bar class="margin-0 padding-0 footer-menu ">
+    <!--<div ng-style="fullDim" class="loading-bg" ng-if="slider1Loading && slider2Loading && RSSLoading">-->
+    <!--<ion-spinner icon="ios" class="spinner-light spinner-center"></ion-spinner>-->
+    <!--</div>-->
+    <ion-footer-bar class="margin-0 padding-0 footer-menu">
         <ion-scroll zooming="true" direction="x" scrollbar-x="false" class="categories-filter">
 			<span class="footer-col" ng-repeat="links in footerLinks" ng-click="footerLink(links)">
-                <div class="row row-no-padding padding-top-5" >
+                <div class="row row-no-padding padding-top-5">
                     <div class="col ">
                         <i class="icon" ng-class="links.icon"></i>
                     </div>
                 </div>
-                <div class="row row-no-padding padding-top-5" >
+                <div class="row row-no-padding padding-top-5">
                     <div class="col ">
                         {{links.name}}
-                    </div>
-                </div>
-            </span>
-            <span class="footer-col" ng-click="openCart()">
-                <div class="row row-no-padding padding-top-5" >
-                    <div class="col ">
-                        <i class="icon ion-android-cart"></i>
-                    </div>
-                </div>
-                <div class="row row-no-padding padding-top-5" >
-                    <div class="col ">
-                        Cart
                     </div>
                 </div>
             </span>
@@ -101,7 +100,7 @@
     </ion-footer-bar>
 
     <!--<ion-tabs class="tabs-light tabs-icon-top">-->
-        <!--<ion-tab title="{{tab.name}}" icon="{{tab.icon}}" ng-repeat="tab in tabs">-->
-        <!--</ion-tab>-->
+    <!--<ion-tab title="{{tab.name}}" icon="{{tab.icon}}" ng-repeat="tab in tabs">-->
+    <!--</ion-tab>-->
     <!--</ion-tabs>-->
 </ion-view>
