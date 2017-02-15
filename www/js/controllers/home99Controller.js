@@ -22,6 +22,7 @@ angular.module('starter')
         $scope.slider1Loading = true;
         $scope.slider2Loading = true;
         $scope.RSSLoading = true;
+        $scope.swiper = {};
 
         var loginstatus = false;
         var menu = {};
@@ -101,8 +102,9 @@ angular.module('starter')
                             $scope.banners.push(n);
                         })
                         $scope.slider2Loading = false;
+                        dataChangeHandler();
                         // $timeout(function() {
-                        //     $ionicSlideBoxDelegate.$getByHandle('promotion').update();
+                            $ionicSlideBoxDelegate.$getByHandle('promotion').update();
                         // },50);
                     }
                     else {
@@ -113,8 +115,9 @@ angular.module('starter')
             else {
                 // console.log('from service')
                 $scope.slider2Loading = false;
+                dataChangeHandler();
                 // $timeout(function(){
-                //     $ionicSlideBoxDelegate.$getByHandle('promotion').update();
+                    $ionicSlideBoxDelegate.$getByHandle('promotion').update();
                 // },50)
             }
         }
@@ -228,9 +231,10 @@ angular.module('starter')
                 })
                 // console.log($scope.banners);
                 $localForage.setItem('promoSlider', $scope.banners);
+                dataChangeHandler();
                 $scope.slider2Loading = false;
                 // $timeout(function() {
-                //     $ionicSlideBoxDelegate.$getByHandle('promotion').update();
+                    $ionicSlideBoxDelegate.$getByHandle('promotion').update();
                 // },50);
 
             });
@@ -344,6 +348,26 @@ angular.module('starter')
         }
 
 // ------------------------------ S C O P E  F U N C T I O N S -----------------------------
+
+        $scope.options = {
+            loop: true,
+            effect: 'slide',
+            initialSlide: 1,
+            speed: 500,
+            pagination: false
+        }
+
+        function dataChangeHandler(){
+            // call this function when data changes, such as an HTTP request, etc
+            if ( $scope.slider ){
+                $scope.slider.updateLoop();
+            }
+        }
+
+        $scope.$on("$ionicSlides.sliderInitialized", function(event, data){
+            // grab an instance of the slider
+            $scope.slider = data.slider;
+        });
 
         $scope.footerLink = function (links) {
             switch (links.linktype) {

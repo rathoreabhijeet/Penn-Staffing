@@ -15,6 +15,10 @@ angular.module('starter')
         $scope.fullDim = {'height': devH + 'px', 'width': devW + 'px'};
         $scope.menudata = MenuData.data;
         var loginstatus = false;
+        var cartItemsSavedInLocalForage = [];
+        $scope.wooCommCatThumb = 0.25 * devW;
+        $scope.wooCategoriesDiv = {'height': 0.6 * devH + 'px'};
+        $scope.wooFixed = {'height': 0.15 * devH + 'px'};
 
 
         //Keeps the sidemenu hidden
@@ -114,6 +118,10 @@ angular.module('starter')
                         if (n.linktypename == "Pages" && isURL(n.articlename)) {
                             $rootScope.RSSarray.push(newmenu);
                         }
+                        else if (n.name == "Return Policy") {
+                            $scope.returnPolicy = newmenu;
+                        }
+
                         else {
                             $timeout(function(){
                                 $scope.menudata.push(newmenu);

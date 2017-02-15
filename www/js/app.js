@@ -16,7 +16,7 @@ function addanalytics(screen) {
 }
 
 angular.module('starter', ['ionic.contrib.drawer', 'ionic', 'ngCordova', 'ionic-cache-src',
-    'starter.services', 'ion-gallery', 'ngCordova', 'ngSanitize', 'LocalForageModule'])
+    'starter.services', 'ion-gallery', 'ngCordova', 'ngSanitize', 'LocalForageModule','ksSwiper'])
     .run(function ($ionicPlatform, MyServices, $rootScope,$localForage, loggedInUser) {
         // $localForage.clear();
         $ionicPlatform.ready(function () {
