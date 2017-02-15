@@ -545,6 +545,9 @@ drawer .item-complex .item-content {
     line-height: 1em;
 
 }
+.article-content div{
+    white-space: normal;
+}
 
 .padding-10 {
     padding: 10px !important;

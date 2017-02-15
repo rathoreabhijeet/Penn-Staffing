@@ -6,6 +6,12 @@
     <ion-nav-buttons side="right">
         <button class="button button-icon button-clear ion-loop" ng-click="refreshAllRSS()">
         </button>
+        <button class="button button-icon button-clear ion-bag" ecomm-modal
+                ng-if="cartItems.length==0">
+        </button>
+        <button class="button button-icon button-clear ion-bag padding-right-10" ecomm-modal ng-if="cartItems.length>0">
+            <span class="badge badge-assertive absolute right-0" >{{cartItems.length}}</span>
+        </button>
     </ion-nav-buttons>
     <ion-nav-title>
         <h1 cache-src="{{headerLogo}}"

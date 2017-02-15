@@ -20,7 +20,7 @@
     <ion-content delegate-handle="main" class="has-subheader">
         <ion-slide-box show-pager="false" ng-init="lockSlide()" on-slide-changed="nextOrPrev()">
             <ion-slide ng-repeat="bloglist in blogs">
-                <ion-list>
+                <ion-list ng-if="showList">
                     <ion-item class="category-ion-item"
                               ng-repeat="blog in bloglist" ng-click="goToRssArticle($index)">
                         <div class="row row-no-padding row-wrap category-items">
