@@ -6,12 +6,6 @@
     <ion-nav-buttons side="right">
         <button class="button button-icon button-clear ion-loop" ng-click="refreshAllData()">
         </button>
-        <button class="button button-icon button-clear ion-bag" ecomm-modal
-        ng-if="cartItems.length==0">
-        </button>
-        <button class="button button-icon button-clear ion-bag padding-right-10" ecomm-modal ng-if="cartItems.length>0">
-        <span class="badge badge-assertive absolute right-0" >{{cartItems.length}}</span>
-        </button>
     </ion-nav-buttons>
     <ion-nav-title>
         <h1 cache-src="{{headerLogo}}"
@@ -24,53 +18,31 @@
     <ion-content class="has-header dark-bg">
 
         <!--the main slider, linked to inner pages-->
-        <div ng-style="sliderheight" ng-if="!slider1Loading">
-            <ks-swiper-container swiper="swiper"
-                                 initial-slide="0"
-                                 loop="false"
-                                 show-nav-buttons="false"
-                                 slides-per-view="1"
-                                 space-between="1"
-                                 pagination-is-active="true"
-                                 pagination-clickable="true"
-                                 autoplay="4000"
-                                 autoplayDisableOnInteraction="false">
-                <ks-swiper-slide class="swiper-slide" ng-repeat="slide in slides.menu track by $index">
-                    <div cache-src="{{slide.image | serverimage}}"
-                         src-is="background"
-                         background-loading-style=" no-repeat center" ng-style="sliderheight"
-                         ui-sref="app.{{slide.linktypelink}}({id:slide.typeid,name:slide.name,articleName:menu.articlename})"
-                         class="text-center slider-bg lightgray-bg">
-                    </div>
-                </ks-swiper-slide>
-            </ks-swiper-container>
-        </div>
-        <ion-spinner icon="ios" class="valign-child spinner-light spinner-center text-center"
-                     ng-if="slider1Loading"></ion-spinner>
+        <ion-slide-box delegate-handle="slides" ng-style="sliderheight" class="valign-parent" ng-if="!slider1Loading">
+            <ion-slide ng-repeat="slide in slides.menu track by $index"
+                       cache-src="{{slide.image | serverimage}}"
+                       src-is="background"
+                       background-loading-style=" no-repeat center"
+                       ui-sref="app.{{slide.linktypelink}}({id:slide.typeid,name:slide.name,articleName:menu.articlename})"
+                       class="text-center slider-bg lightgray-bg">
+                <!--<img alt="" cache-src="{{slide.image | serverimage}}" class="full-height img-shadow">-->
+            </ion-slide>
+            <ion-spinner icon="ios" class="valign-child spinner-light spinner-center text-center"
+                         ng-if="slider1Loading"></ion-spinner>
+        </ion-slide-box>
 
         <!--optional promo banner-->
-        <div ng-style="promo_banner" ng-if="!slider2Loading">
-            <ks-swiper-container swiper="swiper"
-                                 initial-slide="0"
-                                 loop="false"
-                                 show-nav-buttons="false"
-                                 slides-per-view="1"
-                                 space-between="1"
-                                 pagination-clickable="false"
-                                 autoplay="4000"
-                                 autoplayDisableOnInteraction="false">
-                <ks-swiper-slide class="swiper-slide" ng-repeat="banner in banners">
-                    <div class="text-center slider2-bg"
-                         cache-src="{{banner.image| serverimage}}"
-                         src-is="background"
-                         background-loading-style=" no-repeat center" ng-style="promo_banner"
-                         ui-sref="app.{{banner.linktypelink}}({id:banner.typeid,name:banner.name,articleName:menu.articlename})">
-                    </div>
-                </ks-swiper-slide>
-            </ks-swiper-container>
-        </div>
-        <ion-spinner icon="ios" class="valign-child spinner-light spinner-center text-center"
-                     ng-if="slider2Loading"></ion-spinner>
+        <ion-slide-box delegate-handle="promotion" show-pager="false" auto-play="true" does-continue="true"
+                       ng-style="promo_banner" class="padding-separation valign-parent" ng-if="!slider2Loading">
+            <ion-slide ng-repeat="banner in banners" class="text-center slider2-bg"
+                       cache-src="{{banner.image| serverimage}}"
+                       src-is="background"
+                       background-loading-style=" no-repeat center" ng-style="promo_banner"
+                       ui-sref="app.{{banner.linktypelink}}({id:banner.typeid,name:banner.name,articleName:menu.articlename})">
+            </ion-slide>
+            <ion-spinner icon="ios" class="valign-child spinner-light spinner-center text-center"
+                         ng-if="slider2Loading"></ion-spinner>
+        </ion-slide-box>
 
         <!--RSS Feeds-->
 
@@ -101,7 +73,9 @@
         </div>
     </ion-content>
 
-
+    <!--<div ng-style="fullDim" class="loading-bg" ng-if="slider1Loading && slider2Loading && RSSLoading">-->
+    <!--<ion-spinner icon="ios" class="spinner-light spinner-center"></ion-spinner>-->
+    <!--</div>-->
     <ion-footer-bar class="margin-0 padding-0 footer-menu">
         <ion-scroll zooming="true" direction="x" scrollbar-x="false" class="categories-filter">
 			<span class="footer-col" ng-repeat="links in footerLinks" ng-click="footerLink(links)">
@@ -119,4 +93,8 @@
         </ion-scroll>
     </ion-footer-bar>
 
+    <!--<ion-tabs class="tabs-light tabs-icon-top">-->
+    <!--<ion-tab title="{{tab.name}}" icon="{{tab.icon}}" ng-repeat="tab in tabs">-->
+    <!--</ion-tab>-->
+    <!--</ion-tabs>-->
 </ion-view>

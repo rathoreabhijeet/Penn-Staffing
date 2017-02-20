@@ -1,11 +1,12 @@
 <ion-modal-view class="video-overlay">
     <ion-content class="full-height">
         <div class="padding">
-            <button class="button button-light button-outline button-small pull-right" ng-click="closeVideo();">
+            <button class="button button-light button-outline button-small pull-right" ng-click="closeVideo();"
+            ng-class="{'video-modal-button-rotate':landscape}">
                 Done
             </button>
         </div>
-        <div class="at-center">
+        <div class="at-center" ng-style="rotateVideo">
             <div youtube code="video.url"></div>
         </div>
     </ion-content>

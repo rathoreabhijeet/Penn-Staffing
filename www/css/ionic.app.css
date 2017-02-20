@@ -3466,8 +3466,7 @@ ion-infinite-scroll {
   right: 0;
   bottom: 0;
   left: 0;
-  position: absolute;
-}
+  position: absolute; }
   .overflow-scroll .scroll {
     position: static;
     height: 100%;
@@ -8100,9 +8099,9 @@ progress {
       border-color: transparent;
       background: none; }
     .button.button-light.button-outline {
-      border-color: #fff;
+      border-color: #ddd;
       background: transparent;
-      color: #fff; }
+      color: #ddd; }
       .button.button-light.button-outline.active,
       .button.button-light.button-outline.activated {
         background-color: #ddd;
@@ -9430,7 +9429,7 @@ a:hover {
   margin-top: 15px !important; }
 
 .login-bg {
-  background: url("../img/splash.png") no-repeat center center;
+  background: url("../img/appture.jpg") no-repeat center center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -9464,7 +9463,7 @@ a:hover {
 
 .menu-set .item {
   border-color: #eee;
-  /*font-size: 12px !important;*/
+  font-size: 12px !important;
   border-right: 0;
   border-left: 0;
   padding: 0px;

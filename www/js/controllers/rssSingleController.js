@@ -27,7 +27,7 @@ angular.module('starter')
             return regexp.test(s);
         }
 
-        function setServiceObject(slide) {
+        function setServiceObject() {
             // console.log('2');
             //Object to be stored in RSS service
             feedObject = {
@@ -39,10 +39,9 @@ angular.module('starter')
             feedIndex = _.findIndex(RSS.data, function (o) {
                 return o.title == $scope.rssLink;
             });
-            console.log(feedIndex);
             prevFeedIndex = feedIndex;
 
-            if($scope.buttonClicked || slide) {
+            if($scope.buttonClicked || firstload) {
                 $ionicSlideBoxDelegate.slide(feedIndex, 700);
             }
 
@@ -87,7 +86,6 @@ angular.module('starter')
                         $scope.msg = "Invalid RSS feed link";
                         console.log('Invalid RSS feed link');
                         $scope.loading = false;
-
                     }
                     else {
                         console.log(blogsData);
@@ -111,6 +109,7 @@ angular.module('starter')
                             $scope.loading = false;
                             firstload = false;
                             $scope.showList=true;
+
                         } else {
                             $scope.msg = "No blog data or Invalid blog";
                             console.log("No blog data or Invalid blog");
@@ -126,6 +125,7 @@ angular.module('starter')
                 $scope.loading = false;
                 firstload = false;
                 $scope.showList=true;
+
                 // $ionicSlideBoxDelegate.enableSlide(false);
             }
             $scope.buttonClicked = false;
@@ -137,14 +137,15 @@ angular.module('starter')
             if(title && name){
                 $scope.rssLink = title;
                 $scope.name = name;
-                setServiceObject(false);
             }
             else {
                 $scope.rssLink = $stateParams.title;
                 $scope.name = $stateParams.name;
-                setServiceObject(true);
             }
+            setServiceObject();
         }
+
+
 
         $scope.$on('AllDataLoaded', function () {
             _.each($scope.blogs[feedIndex], function (n) {
@@ -233,24 +234,19 @@ angular.module('starter')
                 console.log($ionicSlideBoxDelegate.slidesCount());
                 init();
             },100)
-            $ionicSlideBoxDelegate.enableSlide(false);
+            // $ionicSlideBoxDelegate.enableSlide(false);
         };
 
         $scope.nextOrPrev = function(){
             $ionicScrollDelegate.$getByHandle('main').scrollTop();
             if(!$scope.buttonClicked && !firstload) {
                 console.log('next or prev');
-                console.log(prevFeedIndex);
-                $timeout(function(){
-                    console.log($ionicSlideBoxDelegate.currentIndex());
-                    if (prevFeedIndex < $ionicSlideBoxDelegate.currentIndex()) {
-                        $scope.goToNextRSS();
-                    }
-                    else {
-                        $scope.goToPreviousRSS();
-                    }
-                },500);
-
+                if (prevFeedIndex < $ionicSlideBoxDelegate.currentIndex()) {
+                    $scope.goToNextRSS();
+                }
+                else {
+                    $scope.goToPreviousRSS();
+                }
             }
         }
 
@@ -362,5 +358,6 @@ angular.module('starter')
                 $state.go('access.offline');
             })
         }
+
 
     })

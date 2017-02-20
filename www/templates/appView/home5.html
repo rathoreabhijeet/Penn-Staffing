@@ -4,8 +4,10 @@
             <button class="button button-icon icon ion-navicon" ng-click="toggleDrawerRoot()">
             </button>
         </div>
-        <h1 class="title"></h1>
-    </ion-header-bar>
+        <h1 cache-src="{{headerLogo}}"
+            src-is="background"
+            background-loading-style=" no-repeat center"
+            class="title company-logo article-header-logo"></h1>    </ion-header-bar>
     <ion-content class="no-header dark-bg" style="top:0">
         <ion-slide-box ng-style="sliderheight">
             <ion-slide ng-repeat="slide in slides track by $index" class="text-center slider-bg"
@@ -34,6 +36,22 @@
         </div>
 
     </ion-content>
+    <ion-footer-bar class="margin-0 padding-0 footer-menu">
+        <ion-scroll zooming="true" direction="x" scrollbar-x="false" class="categories-filter">
+			<span class="footer-col" ng-repeat="links in footerLinks" ng-click="footerLink(links)">
+                <div class="row row-no-padding padding-top-5" >
+                    <div class="col ">
+                        <i class="icon" ng-class="links.icon"></i>
+                    </div>
+                </div>
+                <div class="row row-no-padding padding-top-5" >
+                    <div class="col ">
+                        {{links.name}}
+                    </div>
+                </div>
+            </span>
+        </ion-scroll>
+    </ion-footer-bar>
     <div ng-style="fullDim" class="loading-bg" ng-if="loading">
         <ion-spinner icon="ios" class="spinner-light spinner-center"></ion-spinner>
     </div>

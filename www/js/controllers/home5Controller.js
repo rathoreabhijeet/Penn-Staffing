@@ -101,4 +101,37 @@ angular.module('starter')
             $state.go('app.RSSsingle', {name: name, title: title});
         }
 
+        $scope.footerLink = function(links){
+            switch (links.linktype) {
+                case '3':
+                    links.typeid = links.event;
+                    break;
+                case '6':
+                    links.typeid = links.gallery;
+                    break;
+                case '8':
+                    links.typeid = links.video;
+                    break;
+                case '10':
+                    links.typeid = links.blog;
+                    break;
+                case '2':
+                    links.typeid = links.article;
+                    break;
+                default:
+                    links.typeid = 0;
+
+            }
+            if(links.name=="Phone Call"){
+                window.open('tel:' + ('+1' + $rootScope.phoneNumber), '_system');
+            }
+            else if (links.name == "Home") {
+                $state.go("app." + $rootScope.homeLink);
+
+            }
+            else {
+                $state.go("app." + links.linktypelink, {id: links.typeid, name: links.name});
+            }
+        }
+
     })

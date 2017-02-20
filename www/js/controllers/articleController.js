@@ -37,16 +37,16 @@ angular.module('starter')
         // console.log($stateParams.id);
 
         function checkForageForArticle() {
-            console.log('checking forage');
+            // console.log('checking forage');
             $localForage.getItem('articles').then(function (forageData) {
                 if (forageData != null) {
-                    console.log('forage data exists');
-                    console.log(forageData);
+                    // console.log('forage data exists');
+                    // console.log(forageData);
                     var articleIndex = _.findIndex(forageData, function (n) {
                         return n.typeid == $stateParams.id;
                     });
                     if (articleIndex != -1) {
-                        console.log('current article exists in forage');
+                        // console.log('current article exists in forage');
                         $scope.article = forageData[articleIndex].data;
 
                         //adding to service
@@ -57,12 +57,12 @@ angular.module('starter')
                         $ionicLoading.hide();
                     }
                     else {
-                        console.log('current article doesnt exist in forage');
+                        // console.log('current article doesnt exist in forage');
                         getArticleFromId(1);
                     }
                 }
                 else {
-                    console.log('forage data doesnt exist');
+                    // console.log('forage data doesnt exist');
                     getArticleFromId(2);
                 }
             })
@@ -72,12 +72,12 @@ angular.module('starter')
             // console.log('is url');
         }
         else {
-            console.log('is not url');
+            // console.log('is not url');
             var articleIndex = _.findIndex(ArticlesInfo.data, function (n) {
                 return (n.typeid == $stateParams.id) && n.data;
             });
             if (articleIndex != -1) {
-                console.log('exists in service');
+                // console.log('exists in service');
                 $scope.article = ArticlesInfo.data[articleIndex].data;
                 if ($scope.article.data == '') {
                     $scope.msg = "Blank Article.";
@@ -85,7 +85,7 @@ angular.module('starter')
                 $ionicLoading.hide();
             }
             else {
-                console.log('doesnt exist in service');
+                // console.log('doesnt exist in service');
                 checkForageForArticle();
                 // getArticleFromId();
             }
@@ -93,20 +93,20 @@ angular.module('starter')
 
         function getArticleFromId(index) {
             MyServices.getarticle($stateParams.id, function (data) {
-                console.log('data');
-                console.log(data);
+                // console.log('data');
+                // console.log(data);
                 if (isUrl(data.title)) {
                     $scope.singlePage = false;
                     $scope.article.title = $stateParams.name;
-                    console.log('title', $scope.article.title);
-                    console.log('valid url');
+                    // console.log('title', $scope.article.title);
+                    // console.log('valid url');
                     var loadBlogs = function () {
                         addanalytics("Wordpress self blog");
                         MyServices.getFeedFromNewPage(data.title, function (blogsData) {
                             $ionicLoading.hide();
                             if (blogsData.status == 'error') {
                                 $scope.msg = "Invalid RSS feed link";
-                                console.log('Invalid RSS feed link')
+                                // console.log('Invalid RSS feed link')
                             }
                             else {
                                 // console.log(blogsData);
@@ -129,10 +129,10 @@ angular.module('starter')
                 }
                 else {
                     $scope.singlePage = true;
-                    console.log(data.title);
+                    // console.log(data.title);
                     $ionicLoading.hide();
-                    console.log(ArticlesInfo);
-                    console.log($stateParams.id);
+                    // console.log(ArticlesInfo);
+                    // console.log($stateParams.id);
                     var articleIndex = _.findIndex(ArticlesInfo.data, function (n) {
                         return n.typeid == $stateParams.id;
                     });

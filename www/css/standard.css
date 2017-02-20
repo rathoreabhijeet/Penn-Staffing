@@ -379,13 +379,6 @@
     margin-left: auto;
     margin-right: auto;
 }
-.div-centered-80{
-    width: 80%;
-    display: block;
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-}
 .list-no-margin{
   margin-top: 0!important;
   margin-bottom: 0 !important;
@@ -409,7 +402,4 @@
 }
 .no-border{
     border:none !important;
-}
-.absolute{
-    position: absolute !important;
 }

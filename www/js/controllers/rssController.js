@@ -26,18 +26,13 @@ angular.module('starter')
             $scope.RSS.length = 0;
 
             var categories = [];
-            console.log('RSS', RSS);
 
-            console.log($rootScope.RSSarray);
             _.each($rootScope.RSSarray, function (n) {
                 promises.push($http.get($rootScope.adminurl + 'getSingleArticles?id=' + n.typeid, {withCredentials: false}))
             })
 
-            console.log(promises);
-
             $q.all(promises).then(function (data) {
 
-                console.log(data);
                 //Save all data in RSS.data
                 _.each(data, function (singleRSS) {
                     $scope.RSS.push(singleRSS.data);
@@ -51,7 +46,6 @@ angular.module('starter')
 
                 //Get the categories of each RSS feed, make a unique array of all categories
                 _.each($scope.RSS, function (n, index) {
-                    console.log(n);
                     n.name = $rootScope.RSSarray[index].name;
                     n.typeid = $rootScope.RSSarray[index].typeid;
                     var content = n.content.replace(/<[^>]*>/g, '');
@@ -68,10 +62,10 @@ angular.module('starter')
                     $scope.categories.push(n);
                 })
                 $scope.categories.unshift('All');
-                console.log($scope.RSS);
+                // console.log($scope.RSS);
                 $localForage.setItem('rssData', $scope.RSS);
                 $localForage.getItem('rssData').then(function(data){
-                    console.log(data);
+                    // console.log(data);
                 });
                 $scope.RSSLoading = false;
                 $ionicLoading.hide();

@@ -3,7 +3,7 @@ var configreload = {};
 angular.module('starter')
     .controller('ContactCtrl', function ($scope, MyServices, $location, $ionicLoading, $ionicPopup, $timeout, $compile) {
         addanalytics("Contact page");
-        ;
+        // configreload.onallpage();
         $scope.showloading = function () {
             $ionicLoading.show({
                 template: '<ion-spinner class="spinner-positive"></ion-spinner>'

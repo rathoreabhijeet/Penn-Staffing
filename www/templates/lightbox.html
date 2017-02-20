@@ -1,0 +1,19 @@
+<ion-modal-view class="translucent-bg">
+    <ion-header-bar class="bar-transparent">
+        <h1 class="title"></h1>
+        <div class="buttons">
+            <button class="button button-icon icon ion-android-close button-dark" ng-click="closeImageModal()"></button>
+        </div>
+    </ion-header-bar>
+    <ion-content class=" transparent-bg no-header" style="top: 0;">
+        <div class="valign-parent black-bg" ng-style="fullDim">
+            <div class="valign-child">
+                <ion-scroll zooming="true" direction="xy" delegate-handle="zoom-pane"
+                            class="zoom-pane" min-zoom="1.0"
+                            max-zoom="2.5" scrollbar-x="false" scrollbar-y="false" overflow-scroll="false" has-bouncing="false">
+                    <img src="{{lightboxImage}}" class="full-image">
+                </ion-scroll>
+            </div>
+        </div>
+    </ion-content>
+</ion-modal-view>

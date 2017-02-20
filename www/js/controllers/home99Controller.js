@@ -22,7 +22,6 @@ angular.module('starter')
         $scope.slider1Loading = true;
         $scope.slider2Loading = true;
         $scope.RSSLoading = true;
-        $scope.swiper = {};
 
         var loginstatus = false;
         var menu = {};
@@ -46,7 +45,7 @@ angular.module('starter')
 
         // HEADER LOGO - BUSINESS IMAGE
         HeaderLogo.getheaderlogo().then(function (data) {
-                console.log(data);
+                // console.log(data);
                 // $scope.headerLogo = "http://business.staging.appturemarket.com/uploads/header-logo/"+data;
             },
             function (err) {
@@ -69,7 +68,7 @@ angular.module('starter')
                 // console.log('service empty');
                 $localForage.getItem('mainSlider').then(function (forageData) {
                     // console.log(forageData);
-                    if (forageData != null && !_.isEmpty(forageData)) {
+                    if (forageData != null) {
                         // console.log('forage exists');
                         $scope.slides = angular.copy(forageData);
                         $scope.slider1Loading = false;
@@ -97,14 +96,13 @@ angular.module('starter')
             $scope.slider2Loading = true;
             if (HomePage5Info.promos.length == 0) {
                 $localForage.getItem('promoSlider').then(function (forageData) {
-                    if (forageData != null && !_.isEmpty(forageData)) {
+                    if (forageData != null) {
                         _.each(forageData, function (n) {
                             $scope.banners.push(n);
                         })
                         $scope.slider2Loading = false;
-                        dataChangeHandler();
                         // $timeout(function() {
-                            $ionicSlideBoxDelegate.$getByHandle('promotion').update();
+                        //     $ionicSlideBoxDelegate.$getByHandle('promotion').update();
                         // },50);
                     }
                     else {
@@ -115,9 +113,8 @@ angular.module('starter')
             else {
                 // console.log('from service')
                 $scope.slider2Loading = false;
-                dataChangeHandler();
                 // $timeout(function(){
-                    $ionicSlideBoxDelegate.$getByHandle('promotion').update();
+                //     $ionicSlideBoxDelegate.$getByHandle('promotion').update();
                 // },50)
             }
         }
@@ -131,7 +128,7 @@ angular.module('starter')
                 $scope.RSS.length = 0;
                 $localForage.getItem('rssData').then(function (forageData) {
                     console.log(forageData);
-                    if (forageData != null && !_.isEmpty(forageData)) {
+                    if (forageData != null) {
                         _.each(forageData, function (n) {
                             $scope.RSS.push(n);
                         });
@@ -231,10 +228,9 @@ angular.module('starter')
                 })
                 // console.log($scope.banners);
                 $localForage.setItem('promoSlider', $scope.banners);
-                dataChangeHandler();
                 $scope.slider2Loading = false;
                 // $timeout(function() {
-                    $ionicSlideBoxDelegate.$getByHandle('promotion').update();
+                //     $ionicSlideBoxDelegate.$getByHandle('promotion').update();
                 // },50);
 
             });
@@ -305,14 +301,13 @@ angular.module('starter')
             // console.log($rootScope.RSSarray);
             //promises array of $http requests for all RSS links to fetch RSS details
             _.each($rootScope.RSSarray, function (n) {
-                promises.push($http.get($rootScope.adminurl + 'getSingleArticles?id=' + n.typeid, {withCredentials: false}))
+                promises.push($http.get(adminurl + 'getSingleArticles?id=' + n.typeid, {withCredentials: false}))
             })
             // console.log(promises);
             // console.log($scope.RSS);
 
             //Data from all promises then fetched together
             $q.all(promises).then(function (data) {
-                console.log(data);
                 _.each(data, function (RSS) {
                     $scope.RSS.push(RSS.data);
                     // console.log($scope.RSS);
@@ -348,27 +343,10 @@ angular.module('starter')
             });
         }
 
+        // loadMainSlider();
+        // loadPromoSlider();
+        // loadRSS();
 // ------------------------------ S C O P E  F U N C T I O N S -----------------------------
-
-        $scope.options = {
-            loop: true,
-            effect: 'slide',
-            initialSlide: 1,
-            speed: 500,
-            pagination: false
-        }
-
-        function dataChangeHandler(){
-            // call this function when data changes, such as an HTTP request, etc
-            if ( $scope.slider ){
-                $scope.slider.updateLoop();
-            }
-        }
-
-        $scope.$on("$ionicSlides.sliderInitialized", function(event, data){
-            // grab an instance of the slider
-            $scope.slider = data.slider;
-        });
 
         $scope.footerLink = function (links) {
             switch (links.linktype) {

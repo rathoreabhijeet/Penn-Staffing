@@ -3,11 +3,11 @@ var configreload = {};
 angular.module('starter')
 
     .controller('HomeCtrl', function ($scope, $window, $location, MyServices, $ionicLoading, $timeout,
-                                      $sce, $ionicSlideBoxDelegate, HomePageInfo) {
+                                      $sce, $ionicSlideBoxDelegate, HomePageInfo,$state, $rootScope) {
         addanalytics("Home page");
         var devHeight = $window.innerHeight;
         $scope.sliderheight = {'height': 0.6 * devHeight + 'px'};
-        ;
+        // configreload.onallpage();
         $ionicLoading.show({
             template: '<ion-spinner class="spinner-positive"></ion-spinner>'
         });
@@ -61,13 +61,13 @@ angular.module('starter')
             }
         }
 
-        // MyServices.getallfrontmenu(function (data) {
-        //     MyServices.setconfigdata(data);
-        //     $scope.setup();
-        // }, function (err) {
-        //     // console.log('2');
-        //     $location.url("/access/offline");
-        // })
+        MyServices.getallfrontmenu(function (data) {
+            MyServices.setconfigdata(data);
+            $scope.setup();
+        }, function (err) {
+            // console.log('2');
+            $location.url("/access/offline");
+        })
 
         if (HomePageInfo.data.length == 0) {
             $ionicLoading.show({
@@ -122,4 +122,37 @@ angular.module('starter')
         //         $ionicSlideBoxDelegate.enableSlide(true);
         //     }
         // }
+        $scope.footerLink = function(links){
+            switch (links.linktype) {
+                case '3':
+                    links.typeid = links.event;
+                    break;
+                case '6':
+                    links.typeid = links.gallery;
+                    break;
+                case '8':
+                    links.typeid = links.video;
+                    break;
+                case '10':
+                    links.typeid = links.blog;
+                    break;
+                case '2':
+                    links.typeid = links.article;
+                    break;
+                default:
+                    links.typeid = 0;
+
+            }
+            if(links.name=="Phone Call"){
+                window.open('tel:' + ('+1' + $rootScope.phoneNumber), '_system');
+            }
+            else if (links.name == "Home") {
+                $state.go("app." + $rootScope.homeLink);
+
+            }
+            else {
+                $state.go("app." + links.linktypelink, {id: links.typeid, name: links.name});
+            }
+        }
+
     })

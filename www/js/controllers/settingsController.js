@@ -3,7 +3,7 @@ var configreload = {};
 angular.module('starter')
     .controller('SettingCtrl', function ($scope, MyServices, $ionicLoading, $timeout, $location) {
         addanalytics("Setting page");
-        ;
+        // configreload.onallpage();
         $ionicLoading.show({
             template: '<ion-spinner class="spinner-positive"></ion-spinner>'
         });

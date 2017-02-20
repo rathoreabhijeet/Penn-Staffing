@@ -314,16 +314,16 @@
         //     };
         // }])
 
-        // .directive('menuAndDrawerClose', ['$rootScope', function($rootScope) {
-        //     return {
-        //         restrict: 'AC',
-        //         require: '^drawer',
-        //         link: function($scope, $element, $attrs, ctrl) {
-        //             $element.bind('click', function(){
-        //                 ctrl.close();
-        //             });
-        //         }
-        //     };
-        // }]);
+        .directive('menuAndDrawerClose', ['$rootScope', function($rootScope) {
+            return {
+                restrict: 'AC',
+                require: '^drawer',
+                link: function($scope, $element, $attrs, ctrl) {
+                    $element.bind('click', function(){
+                        ctrl.close();
+                    });
+                }
+            };
+        }]);
 
 })()

@@ -14,12 +14,12 @@ angular.module('starter')
                 else {
                     console.log('not first load');
                     $rootScope.firstLoad = true;
-                    if (window.cordova) {
+                    // if (window.cordova) {
                         $state.go('walkthrough');
-                    }
-                    else {
-                        $state.go('app.' + $rootScope.thisIsHome);
-                    }
+                    // }
+                    // else {
+                    //     $state.go('app.' + $rootScope.thisIsHome);
+                    // }
                 }
 
             })
@@ -80,7 +80,7 @@ angular.module('starter')
                             console.log('landing page');
                             checkHomeScreen();
                         }, function (err) {
-                            $state.go('access.offline')
+                        $state.go('access.offline')
                         })
                     }
                 })

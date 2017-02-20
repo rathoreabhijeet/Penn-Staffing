@@ -136,7 +136,7 @@
     var default_config = {
         interval: 200,
         backgroundStyle: '',
-        backgroundLoadingStyle: "url('lib/ionic-cache-src/img/loader.gif') no-repeat center",
+        backgroundLoadingStyle: "url('img/loader.gif') no-repeat center",
         uiOnStart: uiOnStart,
         uiOnFinish: uiOnFinish,
         uiOnProgress: uiOnProgress,

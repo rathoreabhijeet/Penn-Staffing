@@ -12,7 +12,7 @@
     </ion-content>
     <ion-footer-bar class="margin-0 padding-0 footer-menu">
         <ion-scroll zooming="true" direction="x" scrollbar-x="false" class="categories-filter">
-			<span class="footer-col" ng-repeat="links in footerLinks"  ng-click="footerLink(links)">
+			<span class="footer-col" ng-repeat="links in footerLinks"  ui-sref="app.{{links.linktypelink}}({id:links.id,name:links.name})">
                 <div class="row row-no-padding padding-top-5" >
                     <div class="col ">
                         <i class="icon" ng-class="links.icon"></i>
@@ -21,18 +21,6 @@
                 <div class="row row-no-padding padding-top-5" >
                     <div class="col ">
                         {{links.name}}
-                    </div>
-                </div>
-            </span>
-            <span class="footer-col" ng-click="openCart()">
-                <div class="row row-no-padding padding-top-5" >
-                    <div class="col ">
-                        <i class="icon ion-android-cart"></i>
-                    </div>
-                </div>
-                <div class="row row-no-padding padding-top-5" >
-                    <div class="col ">
-                        Cart
                     </div>
                 </div>
             </span>

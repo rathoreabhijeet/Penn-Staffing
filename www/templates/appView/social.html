@@ -3,14 +3,6 @@
         <button class="button button-icon button-clear ion-navicon" menu-and-drawer-toggle>
         </button>
     </ion-nav-buttons>
-    <ion-nav-buttons side="right">
-        <button class="button button-icon button-clear ion-bag" ecomm-modal
-                ng-if="cartItems.length==0">
-        </button>
-        <button class="button button-icon button-clear ion-bag padding-right-10" ecomm-modal ng-if="cartItems.length>0">
-            <span class="badge badge-assertive absolute right-0" >{{cartItems.length}}</span>
-        </button>
-    </ion-nav-buttons>
     <ion-content>
         <ion-list>
             <div class="row row-wrap row-no-padding category-items">
@@ -50,18 +42,6 @@
                 <div class="row row-no-padding padding-top-5" >
                     <div class="col ">
                         {{links.name}}
-                    </div>
-                </div>
-            </span>
-            <span class="footer-col" ng-click="openCart()">
-                <div class="row row-no-padding padding-top-5" >
-                    <div class="col ">
-                        <i class="icon ion-android-cart"></i>
-                    </div>
-                </div>
-                <div class="row row-no-padding padding-top-5" >
-                    <div class="col ">
-                        Cart
                     </div>
                 </div>
             </span>

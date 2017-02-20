@@ -3,7 +3,7 @@ var configreload = {};
 angular.module('starter')
     .controller('BlogDetailCtrl', function ($scope, MyServices, $ionicLoading, $stateParams, $timeout) {
 
-        ;
+        // configreload.onallpage();
         $ionicLoading.hide();
         $scope.msg = "Loading....";
         var getsingleblogsuccess = function (data, status) {

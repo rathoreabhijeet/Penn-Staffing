@@ -103,7 +103,7 @@ angular.module('starter.services', [])
                     url: adminurl + 'createEnquiry',
                     method: "POST",
                     data: {
-                        'id': $.jStorage.get("user").id,
+                        // 'id': $.jStorage.get("user").id,
                         'name': enquiry.name,
                         'email': enquiry.email,
                         'title': enquiry.title,
@@ -122,8 +122,7 @@ angular.module('starter.services', [])
                     method: "POST",
                     data: {
                         'id': id
-                    },
-                    withCredentials: false
+                    }
                 }).success(callback).error(err);
             },
 
@@ -133,8 +132,7 @@ angular.module('starter.services', [])
                     method: "POST",
                     data: {
                         'searchelement': searchelement
-                    },
-                    withCredentials: false
+                    }
                 }).success(callback).error(err);
             },
             getallvideogalleryvideo: function (id, pageno, callback, err) {
@@ -325,9 +323,6 @@ angular.module('starter.services', [])
     .factory("Blogs", function () {
         return {blogs: [], blogType: []};
     })
-    .factory("ReturnPolicy", function () {
-        return {data:{}};
-    })
     .factory("HomePageInfo", function () {
         return {data: [], content: {}};
     })
@@ -357,18 +352,6 @@ angular.module('starter.services', [])
     })
     .factory("MenuData", function () {
         return {data: []};
-    })
-    .factory("latestOrder", function () {
-        return {data: {}};
-    })
-    .factory("loggedInUser", function () {
-        return {data: {}};
-    })
-    .factory("allOrders", function () {
-        return {data: []};
-    })
-    .factory("WooCategories", function () {
-        return {menu: [], main: []};
     })
     .factory('rssService', function ($http, $q) {
 
@@ -421,6 +404,10 @@ angular.module('starter.services', [])
                         withCredentials: false
                     }).then(function (results) {
                         console.log(results);
+                        // _.each(results.data.menu, function (n) {
+                        //     entries.push(n.image);
+                        // });
+                        // console.log(entries);
                         deferred.resolve(results.data.menu);
                     });
                 }
@@ -463,138 +450,6 @@ angular.module('starter.services', [])
         };
     })
 
-    .service('WC', function (Shop) {
-        return {
-            api: function () {
-                var Woocommerce = new WooCommerceAPI.WooCommerceAPI({
-                    url: Shop.URL,
-                    queryStringAuth: true,
-                    consumerKey: Shop.ConsumerKey,
-                    consumerSecret: Shop.ConsumerSecret
-                });
-                return Woocommerce;
-            }
-        }
-    })
-    .factory('AuthService', function ($q, $http, WC, Shop, $state) {
-        var LOCAL_TOKEN_KEY = Shop.name + "-user";
-        var id = '';
-        var username = '';
-        var email = '';
-        var name = '';
-
-        var isAuthenticated = false;
-        var role = '';
-        var authToken;
-
-        function loadUserCredentials() {
-            var user = window.localStorage.getItem(LOCAL_TOKEN_KEY);
-            if (user) {
-                useCredentials(JSON.parse(user));
-                console.log(user);
-                if (user) {
-                    // $state.go('app.shippingAddress');
-                    return true;
-                }
-                else {
-                    return false;
-                }
-            }
-        }
-
-        function storeUserCredentials(user) {
-            window.localStorage.setItem(LOCAL_TOKEN_KEY, JSON.stringify(user));
-            useCredentials(user);
-            console.log(user);
-        }
-
-        function useCredentials(user) {
-            id = user.id;
-            username = user.username;
-            email = user.email;
-            name = user.firstname + ' ' + user.lastname;
-
-            isAuthenticated = true;
-            authToken = JSON.stringify(user);
-            //$http.defaults.headers.common['X-Auth-Token'] = JSON.stringify(user);
-        }
-
-        function destroyUserCredentials() {
-            authToken = undefined;
-
-            id = '';
-            username = '';
-            email = '';
-            name = '';
-
-            isAuthenticated = false;
-            //$http.defaults.headers.common['X-Auth-Token'] = undefined;
-            window.localStorage.removeItem(LOCAL_TOKEN_KEY);
-        }
-
-        var login = function (data) {
-            return $q(function (resolve, reject) {
-                $http.get(Shop.URL + '/api/user/generate_auth_cookie/?username=' + data.name + '&password=' + data.password + '&insecure=cool', {
-                    withCredentials: false
-                })
-                    .success(function (x) {
-                        console.log(x);
-                        if (x.status == 'ok') {
-                            storeUserCredentials(x.user);
-                            resolve(x.user);
-                        } else
-                            reject(x.error);
-                    })
-                    .error(function (err) {
-                        reject('Error in connection check your internet');
-                    });
-            });
-        };
-
-        var logout = function (id, os) {
-            destroyUserCredentials();
-            //$http.get(API+'logout.php?id='+id+'&os='+os, null, function(){});
-        };
-
-        var isAuthorized = function (authorizedRoles) {
-            if (!angular.isArray(authorizedRoles)) {
-                authorizedRoles = [authorizedRoles];
-            }
-            return (isAuthenticated && authorizedRoles.indexOf(role) !== -1);
-        };
-
-        loadUserCredentials();
-
-        return {
-            login: login,
-            logout: logout,
-            loadUserCredentials: loadUserCredentials,
-            isAuthorized: isAuthorized,
-            isAuthenticated: function () {
-                return isAuthenticated;
-            },
-            id: function () {
-                return id;
-            },
-            name: function () {
-                return name;
-            },
-            username: function () {
-                return username;
-            },
-            email: function () {
-                return email;
-            },
-            authToken: function () {
-                return authToken;
-            },
-            role: function () {
-                return role;
-            }
-        };
-    })
-
-
     .factory('Footer', function ($http, $q, $rootScope) {
 
         return {
@@ -618,5 +473,3 @@ angular.module('starter.services', [])
 
         };
     })
-
-
