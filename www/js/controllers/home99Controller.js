@@ -5,7 +5,7 @@ angular.module('starter')
     .controller('Home99Ctrl', function ($scope, $window, $location, MyServices, $ionicLoading, $timeout,
                                         $sce, $ionicSlideBoxDelegate, HomePage5Info, RSS, $rootScope, $q,
                                         $http, $state, Banner, HeaderLogo, Footer, $localForage, Config,
-                                        $stateParams, $cordovaToast,MenuData) {
+                                        $stateParams, $cordovaToast,MenuData, ArticlesInfo) {
 
         // ------------------------------ I N I T I A L I Z E -----------------------------
 
@@ -241,7 +241,7 @@ angular.module('starter')
         }
 
         function sortRssLinks(data) {
-            // $scope.menudata.length=0;
+            $scope.menudata.length=0;
 
             // console.log(data);
             _.each(data.menu, function (n, index) {
@@ -277,12 +277,56 @@ angular.module('starter')
                     // $rootScope.homeName = 'Home';
 
                     //If there is URL in page name, it means it contains RSS feed links
+                    if (newmenu.link == 'home') {
+                        var number;
+                        //Find index of # in item name, if it exists
+                        if (newmenu.name.indexOf('#') != -1) {
+                            number = newmenu.name.substring(newmenu.name.indexOf('#') + 1, newmenu.name.length);
+                            //Change Menu name to Home itself
+                            newmenu.name = newmenu.name.replace('#' + number, '');
+                        }
+                        //Change link to numbered homePage
+                        newmenu.link = 'home' + number;
+                        // console.log('redirection to home' + number);
+
+                        //Custom home name
+                        $rootScope.homeName = newmenu.name;
+                        $rootScope.homeLink = 'home' + number;
+                    }
+
+                    //If there is URL in page name, it means it contains RSS feed links
                     if (n.linktypename == "Pages" && isURL(n.articlename)) {
                         $rootScope.RSSarray.push(newmenu);
+                    }
+                    else if (n.name == "Return Policy") {
+                        $scope.returnPolicy = newmenu;
+                    }
+
+                    else {
+                        $timeout(function () {
+                            $scope.menudata.push(newmenu);
+                        }, 50);
                     }
                     // console.log($rootScope.RSSarray);
                 }
             });
+            $timeout(function () {
+                console.log('menudata');
+                console.log($scope.menudata);
+                console.log('rssarray');
+                console.log($rootScope.RSSarray);
+                ArticlesInfo.data.length = 0;
+                _.each($scope.menudata, function (n) {
+                    if (n.link == 'article') {
+                        ArticlesInfo.data.push(n);
+                    }
+                })
+                console.log(ArticlesInfo.data);
+                $scope.contact = data.config[5];
+                $scope.menu = {};
+                $scope.menu.setting = false;
+
+            }, 500);
             console.log('from sortlinks');
             fetchRSSData();
         }

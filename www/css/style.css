@@ -1017,3 +1017,10 @@ drawer .item-complex .item-content {
 .font-18 a{
     padding-right: 10px !important;
 }
+.new-loader{
+    background-image: url('../img/loader.gif');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+
+}

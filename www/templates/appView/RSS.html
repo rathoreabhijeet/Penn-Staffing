@@ -29,8 +29,8 @@
                 <ion-item class="col col-50 margin-0 no-border">
                     <div class="row row-no-padding margin-0" ng-repeat="cat in RSS|filterVideoByCategories:selectedCategory" ng-if="$index%2==0">
                         <div class="col">
-                            <div class="item-image" ng-style="RSSCat" ng-click="goToRssSingle(cat.name,cat.title)">
-                                <img class="full-image" alt="" cache-src="{{cat.image|serverimage}}">
+                            <div class="item-image new-loader" ng-style="RSSCat" ng-click="goToRssSingle(cat.name,cat.title)">
+                                <img class="full-image" alt="" cache-src="{{cat.image|serverimage}}" circle-container-style="display:none">
                                 <!--<h3 class="RSS-category">{{cat.name}}</h3>-->
                             </div>
                         </div>
@@ -39,8 +39,8 @@
                 <ion-item class="col col-50 margin-0 no-border">
                     <div class="row row-no-padding margin-0" ng-repeat="cat in RSS|filterVideoByCategories:selectedCategory" ng-if="$index%2!=0">
                         <div class="col">
-                            <div class="item-image" ng-style="RSSCat" ng-click="goToRssSingle(cat.name, cat.title)">
-                                <img class="full-image" alt="" cache-src="{{cat.image|serverimage}}">
+                            <div class="item-image new-loader" ng-style="RSSCat" ng-click="goToRssSingle(cat.name, cat.title)">
+                                <img class="full-image" alt="" cache-src="{{cat.image|serverimage}}" circle-container-style="display:none">
                                 <!--<h3 class="RSS-category">{{cat.name}}</h3>-->
                             </div>
                         </div>
